@@ -36,6 +36,7 @@ module alu(
     logic [3:0] PASS_INPUT = 4'b0111;
     
     // alu logic
+    logic [63:0] zeros = 64'b0;
     always_comb begin
         case (ALUControl)
             AND        : result = a & b;
@@ -43,11 +44,11 @@ module alu(
             ADD        : result = a + b;
             SUB        : result = a - b;
             PASS_INPUT : result = b;
-            default: result = 64'b0;
+            default: result = zeros;
         endcase
 
         // zero flag
-        zero = (result == 64'b0);
+        zero = (result == zeros);
 
     end
 endmodule
