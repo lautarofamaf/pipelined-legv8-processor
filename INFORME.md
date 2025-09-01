@@ -5,6 +5,3 @@ Integrante 3:
 
 
 Ejercicios resueltos:
-
-
-
