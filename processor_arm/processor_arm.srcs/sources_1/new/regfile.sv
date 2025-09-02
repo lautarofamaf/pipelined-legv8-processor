@@ -40,5 +40,8 @@ module regfile(
     end
 
     
+    if (we3 == 5'b00001 & clk == 1'b1) begin
+        
+    end
 
 endmodule
