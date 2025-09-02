@@ -21,14 +21,14 @@
 
 
 module regfile(
-        input  logic clk,
-        input  logic we3,
-        input  logic ra1,
-        input  logic ra2,
-        input  logic wa3,
-        input  logic wd3,
-        output logic rd1,
-        output logic rd2
+        input logic clk,
+        input logic we3,
+        input logic [4:0] ra1,
+        input logic [4:0] ra2,
+        input logic [4:0] wa3,
+        input logic [63:0] wd3,
+        output logic [63:0] rd1,
+        output logic [63:0] rd2
     );
 
     logic [63:0] registers [31:0];
@@ -38,5 +38,7 @@ module regfile(
         end
         registers[31] = 64'd0;
     end
+
+    
 
 endmodule
