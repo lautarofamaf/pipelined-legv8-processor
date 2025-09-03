@@ -1,26 +1,19 @@
 `timescale 1ns / 1ps
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 09/03/2025 05:56:33 PM
-// Design Name: 
-// Module Name: adder
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
 
+module adder (
+    input  logic [63:0] addr,
+    output logic [63:0] result
+);
 
-module adder(
+  logic [3:0] ALU_ADD = 4'b0010;  // Codigo suma
+  logic dummy_zero;
 
-    );
+  alu instancia_alu (
+      .a(addr),
+      .b(64'd4),
+      .ALUControl(ALU_ADD),
+      .result(result),
+      .zero(dummy_zero)
+  );
+
 endmodule
