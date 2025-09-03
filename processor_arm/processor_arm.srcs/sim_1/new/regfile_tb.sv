@@ -33,27 +33,31 @@ module regfile_tb ();
       .rd2(rd2)
   );
 
-  initial begin  // initial == secuencial tipo C
+  initial begin
+    clk = 0;
+  end
+
+  initial begin
     for (int i = 0; i < 31; i++) begin
       // ---------------------
-      // Zona flanco positivo
+      // Ciclo 1: en flanco positivo se setea ra1 y ra2
       ra1 = i;
       ra2 = i;
+      @(posedge clk);  // espero proximo flanco positivo
+
       // ---------------------
-      #5;
-      // ---------------------
-      // Zona flanco negativo
-      // En el registro i tengo el numero i, por eso hago este chequeo
-      if (ra1 != rd1) $display("Error regfile 1");
-      #5;
+      // Ciclo 2: en flanco negativo o siguiente flanco positivo reviso
+      @(negedge clk);
+      if (ra1 != rd1) $display("Error regfile 1 en %0d", i);
       // ---------------------
     end
+
     // Veo en el 31
     ra1 = 31;
     ra2 = 31;
-    #0;  // NO ES 0, ES UN DELTA (1ps????) TODO: ??????????????????????????????????????????????????????????????????????????????????
-    if (!(ra1 == 31 && rd1 == 64'b0)) $display("Error regfile 2a, ra1 = %0d, rd1 = %0d", ra1, rd1);
-    if (!(ra2 == 31 && rd2 == 64'b0)) $display("Error regfile 2b, ra2 = %0d, rd2 = %0d", ra2, rd2);
+    #0;  // NO ES 0, ES UN DELTA (1ps????) TODO: ??????????????????????????????????????????????????? 
+    if (!(rd1 == 64'b0)) $display("Error regfile 2a, rd1 = %0d", rd1);
+    if (!(rd2 == 64'b0)) $display("Error regfile 2b, rd2 = %0d", rd2);
 
   end
 
