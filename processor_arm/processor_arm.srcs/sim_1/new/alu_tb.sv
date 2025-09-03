@@ -21,137 +21,71 @@ module alu_tb ();
   logic [3:0] SUB = 4'b0110;
   logic [3:0] PASS_INPUT = 4'b0111;
 
+  // automatic --> variables viven y mueren en cada llamada
+  task automatic check(input logic [63:0] aval, input logic [63:0] bval, input logic [3:0] op,
+                       input logic [63:0] expected, string msg);
+    begin
+      a = aval;
+      b = bval;
+      ALUControl = op;
+      #1;  // ESPERO UN NS PARA QUE EL RESULT SE POPULE
+      assert (result == expected)
+      else $display("ERROR con %s!!! Tuve: %0d, y esperaba: %0d", msg, result, expected);
+      #9;  // completar 10ns
+    end
+  endtask
+
   initial begin
     // ----------- ADD -----------
     // 1: Dos numeros positivos
-    a = 64'd2;
-    b = 64'd15;
-    ALUControl = ADD;
-    assert (result == 64'd17)
-    else $display("1) ADD failed: 2 + 15 != %d", result);
-    #10;
+    check(2, 15, ADD, 17, "ADD 2 + 15");
 
     // 2: Dos numeros negativos
-    a = -64'd50;
-    b = -64'd25;
-    ALUControl = ADD;
-    assert (result == -64'd75)
-    else $display("2) ADD failed: -50 + (-25) != %d", result);
-    #10;
+    check(-64'd50, -64'd25, ADD, -64'd75, "ADD -50 + -25");
 
-    //3: Uno positivo y otro negativo
-    a = 64'd1;
-    b = -64'd3;
-    ALUControl = ADD;
-    assert (result == -64'd2)
-    else $display("3) ADD failed: 1 + (-3) != %d", result);
-    #10;
+    // 3: Uno positivo y otro negativo
+    check(64'd1, -64'd3, ADD, -64'd2, "ADD 1 + (-3)");
 
-    //4: Uno negativo y otro positivo
-    a = -64'd5;
-    b = 64'd3;
-    ALUControl = ADD;
-    assert (result == -64'd2)
-    else $display("4) ADD failed: -5 + 3 != %d", result);
-    #10;
+    // 4: Uno negativo y otro positivo
+    check(-64'd5, 64'd3, ADD, -64'd2, "ADD -5 + 3");
 
     // ----------- SUB -----------
     // 1: Dos numeros positivos
-    a = 64'd5;
-    b = 64'd2;
-    ALUControl = SUB;
-    assert (result == 64'd3)
-    else $display("1) SUB failed: 5 - 2 != %d", result);
-    #10;
+    check(64'd5, 64'd2, SUB, 64'd3, "SUB 5-2");
 
     // 2: Dos numeros negativos
-    a = -64'd2;
-    b = -64'd5;
-    ALUControl = SUB;
-    assert (result == 64'd3)
-    else $display("2) SUB failed: -2 - (-5) != %d", result);
-    #10;
+    check(-64'd2, -64'd5, SUB, 64'd3, "SUB -2 - (-5)");
 
     // 3: Uno positivo y otro negativo
-    a = 64'd1;
-    b = -64'd3;
-    ALUControl = SUB;
-    assert (result == 64'd4)
-    else $display("3) SUB failed: 1 - (-3) != %d", result);
-    #10;
+    check(64'd1, -64'd3, SUB, 64'd4, "SUB 1 - (-3)");
 
     // 4: Uno negativo y otro positivo
-    a = -64'd5;
-    b = 64'd2;
-    ALUControl = SUB;
-    assert (result == -64'd7)
-    else $display("4) SUB failed: -5 - 2 != %d", result);
-    #10;
+    check(-64'd5, 64'd2, SUB, -64'd7, "SUB -5 - 2");
 
     // ----------- AND -----------
-    a = 64'hFFFF_FFFF_FFFF_FFFF;
-    b = 64'h0F0F_0F0F_0F0F_0F0F;
-    ALUControl = AND;
-    assert (result == 64'h0F0F_0F0F_0F0F_0F0F)
-    else $display("1) AND failed");
-    #10;
+    check(64'hFFFF_FFFF_FFFF_FFFF, 64'h0F0F_0F0F_0F0F_0F0F, AND, 64'h0F0F_0F0F_0F0F_0F0F,
+          "AND mask full");
 
-    a = 64'h1234_5678_9ABC_DEF0;
-    b = 64'hFFFF_0000_FFFF_0000;
-    ALUControl = AND;
-    assert (result == 64'h1234_0000_9ABC_0000)
-    else $display("2) AND failed");
-    #10;
+    check(64'h1234_5678_9ABC_DEF0, 64'hFFFF_0000_FFFF_0000, AND, 64'h1234_0000_9ABC_0000,
+          "AND half mask");
 
-    a = 64'd0;
-    b = 64'd0;
-    ALUControl = AND;
-    assert (result == 64'd0)
-    else $display("3) AND failed: 0 & 0 != %d", result);
-    #10;
+    check(64'd0, 64'd0, AND, 64'd0, "AND 0&0");
 
     // ----------- OR -----------
-    a = 64'hFFFF_0000_FFFF_0000;
-    b = 64'h0000_FFFF_0000_FFFF;
-    ALUControl = OR;
-    assert (result == 64'hFFFF_FFFF_FFFF_FFFF)
-    else $display("1) OR failed");
-    #10;
+    check(64'hFFFF_0000_FFFF_0000, 64'h0000_FFFF_0000_FFFF, OR, 64'hFFFF_FFFF_FFFF_FFFF,
+          "OR combine");
 
-    a = 64'd0;
-    b = 64'd0;
-    ALUControl = OR;
-    assert (result == 64'd0)
-    else $display("2) OR failed: 0 | 0 != %d", result);
-    #10;
+    check(64'd0, 64'd0, OR, 64'd0, "OR 0|0");
 
-    a = 64'h1234_5678_9ABC_DEF0;
-    b = 64'h0000_0000_FFFF_FFFF;
-    ALUControl = OR;
-    assert (result == 64'h1234_5678_FFFF_FFFF)
-    else $display("3) OR failed");
-    #10;
+    check(64'h1234_5678_9ABC_DEF0, 64'h0000_0000_FFFF_FFFF, OR, 64'h1234_5678_FFFF_FFFF,
+          "OR fill low");
 
     // ----------- PASS_INPUT -----------
-    b = 64'hDEAD_BEEF_DEAD_BEEF;
-    ALUControl = PASS_INPUT;
-    assert (result == 64'hDEAD_BEEF_DEAD_BEEF)
-    else $display("1) PASS_INPUT failed");
-    #10;
+    check(64'hDEAD_BEEF_DEAD_BEEF, 0, PASS_INPUT, 64'hDEAD_BEEF_DEAD_BEEF, "PASS B");
 
-    b = 64'd0;
-    ALUControl = PASS_INPUT;
-    assert (result == 64'd0)
-    else $display("2) PASS_INPUT failed: expected 0");
-    #10;
+    check(64'd0, 0, PASS_INPUT, 64'd0, "PASS 0");
 
-    b = 64'hFFFF_FFFF_FFFF_FFFF;
-    ALUControl = PASS_INPUT;
-    assert (result == 64'hFFFF_FFFF_FFFF_FFFF)
-    else $display("3) PASS_INPUT failed");
-    #10;
-
-    $display("TESTS ALU TERMINADOS");
+    check(64'hFFFF_FFFF_FFFF_FFFF, 0, PASS_INPUT, 64'hFFFF_FFFF_FFFF_FFFF, "PASS all ones");
 
     $finish;
   end
