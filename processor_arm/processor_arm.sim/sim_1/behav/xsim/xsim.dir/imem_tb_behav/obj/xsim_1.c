@@ -68,12 +68,12 @@ IKI_DLLESPEC extern void execute_15(char*, char *);
 IKI_DLLESPEC extern void execute_16(char*, char *);
 IKI_DLLESPEC extern void execute_17(char*, char *);
 IKI_DLLESPEC extern void execute_18(char*, char *);
-IKI_DLLESPEC extern void transaction_2(char*, char*, unsigned, unsigned, unsigned);
+IKI_DLLESPEC extern void transaction_3(char*, char*, unsigned, unsigned, unsigned);
 IKI_DLLESPEC extern void vlog_transfunc_eventcallback(char*, char*, unsigned, unsigned, unsigned, char *);
-IKI_DLLESPEC extern void transaction_5(char*, char*, unsigned, unsigned, unsigned);
+IKI_DLLESPEC extern void transaction_6(char*, char*, unsigned, unsigned, unsigned);
 IKI_DLLESPEC extern void transaction_1(char*, char*, unsigned, unsigned, unsigned);
 IKI_DLLESPEC extern void vlog_transfunc_eventcallback_2state(char*, char*, unsigned, unsigned, unsigned, char *);
-funcp funcTab[19] = {(funcp)execute_3, (funcp)execute_11, (funcp)execute_12, (funcp)execute_10, (funcp)execute_6, (funcp)execute_7, (funcp)execute_8, (funcp)execute_9, (funcp)execute_13, (funcp)execute_14, (funcp)execute_15, (funcp)execute_16, (funcp)execute_17, (funcp)execute_18, (funcp)transaction_2, (funcp)vlog_transfunc_eventcallback, (funcp)transaction_5, (funcp)transaction_1, (funcp)vlog_transfunc_eventcallback_2state};
+funcp funcTab[19] = {(funcp)execute_3, (funcp)execute_11, (funcp)execute_12, (funcp)execute_10, (funcp)execute_6, (funcp)execute_7, (funcp)execute_8, (funcp)execute_9, (funcp)execute_13, (funcp)execute_14, (funcp)execute_15, (funcp)execute_16, (funcp)execute_17, (funcp)execute_18, (funcp)transaction_3, (funcp)vlog_transfunc_eventcallback, (funcp)transaction_6, (funcp)transaction_1, (funcp)vlog_transfunc_eventcallback_2state};
 const int NumRelocateId= 19;
 
 void relocate(char *dp)
