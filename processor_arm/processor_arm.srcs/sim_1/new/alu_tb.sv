@@ -19,7 +19,7 @@ module alu_tb ();
   logic [3:0] OR = 4'b0001;
   logic [3:0] ADD = 4'b0010;
   logic [3:0] SUB = 4'b0110;
-  logic [3:0] PASS_INPUT = 4'b0111;
+  logic [3:0] PASS_INPUT_B = 4'b0111;
 
   // automatic --> variables viven y mueren en cada llamada
   task automatic check(input logic [63:0] aval, input logic [63:0] bval, input logic [3:0] op,
@@ -31,6 +31,15 @@ module alu_tb ();
       #1;  // ESPERO UN NS PARA QUE EL RESULT SE POPULE
       assert (result == expected)
       else $display("ERROR con %s!!! Tuve: %0d, y esperaba: %0d", msg, result, expected);
+
+      assert (zero == (result == 64'b0))
+      else
+        $display(
+            "ERROR con %s!!! Tenia que tener zero flag = %d y tiene zero = %d",
+            msg,
+            result == 64'b0,
+            zero
+        );
       #9;  // completar 10ns
     end
   endtask
@@ -80,12 +89,28 @@ module alu_tb ();
     check(64'h1234_5678_9ABC_DEF0, 64'h0000_0000_FFFF_FFFF, OR, 64'h1234_5678_FFFF_FFFF,
           "OR fill low");
 
-    // ----------- PASS_INPUT -----------
-    check(64'hDEAD_BEEF_DEAD_BEEF, 0, PASS_INPUT, 64'hDEAD_BEEF_DEAD_BEEF, "PASS B");
+    // ----------- PASS_INPUT_B -----------
+    check(64'd0, 64'hDEAD_BEEF_DEAD_BEEF, PASS_INPUT_B, 64'hDEAD_BEEF_DEAD_BEEF, "PASS B");
 
-    check(64'd0, 0, PASS_INPUT, 64'd0, "PASS 0");
+    check(64'd0, 64'd0, PASS_INPUT_B, 64'd0, "PASS 0");
 
-    check(64'hFFFF_FFFF_FFFF_FFFF, 0, PASS_INPUT, 64'hFFFF_FFFF_FFFF_FFFF, "PASS all ones");
+    check(64'd0, 64'hFFFF_FFFF_FFFF_FFFF, PASS_INPUT_B, 64'hFFFF_FFFF_FFFF_FFFF, "PASS all ones");
+
+    // ----------- ZERO FLAG -----------
+    // 1) ADD que da 0
+    check(-5, 5, ADD, 64'd0, "ADD -5 + 5");
+
+    // // 2) SUB que da 0
+    check(10, 10, SUB, 64'd0, "SUB 10 - 10");
+    //
+    // // 3) AND que da 0
+    check(64'hFF00, 64'h00FF, AND, 64'd0, "AND 0");
+    //
+    // // 4) OR que da 0
+    check(64'd0, 64'd0, OR, 64'd0, "OR 0");
+    //
+    // // 5) PASS_INPUT B que da 0
+    check(64'd123, 64'd0, PASS_INPUT_B, 64'd0, "PASS_INPUT 0");
 
     $finish;
   end
