@@ -1,7 +1,6 @@
 # compile verilog/system verilog design source files
 sv xil_defaultlib  \
-"../../../../processor_arm.srcs/sources_1/new/imem.sv" \
-"../../../../processor_arm.srcs/sim_1/new/imem_tb.sv" \
+"../../../../processor_arm.srcs/sources_1/new/regfile.sv" \
 
 # compile glbl module
 verilog xil_defaultlib "glbl.v"
