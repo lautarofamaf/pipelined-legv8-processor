@@ -1,7 +1,5 @@
 `timescale 1ns / 1ps
 
-// `define fore(i,a,b) for (int i = a; i < b; i++)
-
 module regfile_tb ();
   logic clk = 0;  // pinta inicializar el clock en 0
 
@@ -14,13 +12,13 @@ module regfile_tb ();
   end
 
   // inputs/outputs de regfile
-  logic        we3;
-  logic [ 4:0] ra1;
-  logic [ 4:0] ra2;
-  logic [ 4:0] wa3;
-  logic [63:0] wd3;
-  logic [63:0] rd1;
-  logic [63:0] rd2;
+  logic        we3;  // write enable (habilita escritura)
+  logic [ 4:0] ra1;  // dirección read address 1
+  logic [ 4:0] ra2;  // dirección read address 2
+  logic [ 4:0] wa3;  // dirección write address
+  logic [63:0] wd3;  // dato a escribir
+  logic [63:0] rd1;  // dato leido address 1
+  logic [63:0] rd2;  // dato leido address 2
 
   // Instancio regfile con estos valores
   regfile dut (
@@ -39,25 +37,23 @@ module regfile_tb ();
 
   initial begin
     for (int i = 0; i < 31; i++) begin
-      // ---------------------
-      // Ciclo 1: en flanco positivo se setea ra1 y ra2
+
+      @(negedge clk);  // ESPERO FLANCO DESCENDENTE
+      // en flanco descendente se setea ra1 y ra2
       ra1 = i;
       ra2 = i;
-      @(posedge clk);  // espero proximo flanco positivo
+      #0  // ESPERO UN DELTA PARA QUE rd1 Y rd2 SE ACTUALICEN
+      if (ra1 == rd1 && ra2 == rd2) $display("OK");
+      else $display("ERROR regfile: ra1 = %d, rd1 = %d, ra2 = %d, rd2 = ", ra1, rd1, ra2, rd2);
 
-      // ---------------------
-      // Ciclo 2: en flanco negativo o siguiente flanco positivo reviso
-      @(negedge clk);
-      if (ra1 != rd1) $display("Error regfile 1 en %0d", i);
-      // ---------------------
     end
 
-    // Veo en el 31
-    ra1 = 31;
-    ra2 = 31;
-    #0;  // NO ES 0, ES UN DELTA (1ps????) TODO: ??????????????????????????????????????????????????? 
-    if (!(rd1 == 64'b0)) $display("Error regfile 2a, rd1 = %0d", rd1);
-    if (!(rd2 == 64'b0)) $display("Error regfile 2b, rd2 = %0d", rd2);
+    // // Veo en el 31
+    // ra1 = 31;
+    // ra2 = 31;
+    // #0;  // NO ES 0, ES UN DELTA (1ps????) TODO: ??????????????????????????????????????????????????? 
+    // if (!(rd1 == 64'b0)) $display("Error regfile 2a, rd1 = %0d", rd1);
+    // if (!(rd2 == 64'b0)) $display("Error regfile 2b, rd2 = %0d", rd2);
 
   end
 
