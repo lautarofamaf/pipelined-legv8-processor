@@ -21,6 +21,7 @@ module flopr_tb ();
       .d(d),
       .q(q)
   );
+
   // instancio flopr usando el parametro 32
   flopr #(
       .N(32)
@@ -30,6 +31,7 @@ module flopr_tb ();
       .d(d32),
       .q(q32)
   );
+
   // apply inputs one at a time:
   initial begin
     clk   = 0;
@@ -68,5 +70,6 @@ module flopr_tb ();
     d32 = 32'd9;
     #10;
     $finish;
+
   end
 endmodule
