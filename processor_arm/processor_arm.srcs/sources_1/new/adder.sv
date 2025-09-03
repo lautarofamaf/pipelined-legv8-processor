@@ -5,15 +5,6 @@ module adder (
     output logic [63:0] result
 );
 
-  logic [3:0] ALU_ADD = 4'b0010;  // Codigo suma
-  logic dummy_zero;
-
-  alu instancia_alu (
-      .a(addr),
-      .b(64'd4),
-      .ALUControl(ALU_ADD),
-      .result(result),
-      .zero(dummy_zero)
-  );
+  assign result = addr + 64'd4;
 
 endmodule
