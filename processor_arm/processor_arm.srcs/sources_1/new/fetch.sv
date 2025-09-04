@@ -29,7 +29,8 @@ module fetch (
 
   // adder suma 4
   adder sumador (
-      .addr  (PC),
+      .addr(PC),
+      .sum(64'd4),
       .result(PCPlus4)
   );
 
