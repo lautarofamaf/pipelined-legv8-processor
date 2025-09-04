@@ -14,6 +14,9 @@ module execute (
 );
 
   logic [63:0] salidaDelMultiplexor;
+
+  assign writeData_E = readData2_E;
+
   mux2 mux (
       .d0(readData2_E),
       .d1(signImm_E),
