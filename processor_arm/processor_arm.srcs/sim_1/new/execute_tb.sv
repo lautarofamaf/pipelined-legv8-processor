@@ -43,6 +43,7 @@ module execute_tb ();
     $display("---------- TESTS EXECUTE  ----------");
 
     // @(negedge clk);
+    // readData1 AND readData2
     PC_E = 64'd1;
     signImm_E = 64'd2;
     readData1_E = 64'd3;
@@ -52,6 +53,7 @@ module execute_tb ();
     // @(posedge clk);
     #10;
 
+    // readData1 OR readData2
     // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
@@ -62,7 +64,7 @@ module execute_tb ();
     // @(posedge clk);
     #10;
 
-
+    // readData1 + readData2
     // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
@@ -73,7 +75,7 @@ module execute_tb ();
     // @(posedge clk);
     #10;
 
-
+    // readData1 - readData2
     // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
@@ -84,6 +86,7 @@ module execute_tb ();
     // @(posedge clk);
     #10;
 
+    // readData2
     // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
@@ -94,6 +97,7 @@ module execute_tb ();
     // @(posedge clk);
     #10;
 
+    // readData1 AND signImm  
     // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
@@ -104,7 +108,7 @@ module execute_tb ();
     // @(posedge clk);
     #10;
 
-
+    // readData1 OR signImm
     // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
@@ -115,7 +119,7 @@ module execute_tb ();
     // @(posedge clk);
     #10;
 
-
+    // readData1 + signImm  
     // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
@@ -126,7 +130,7 @@ module execute_tb ();
     // @(posedge clk);
     #10;
 
-
+    // readData1 - signImm
     // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
@@ -137,6 +141,7 @@ module execute_tb ();
     // @(posedge clk);
     #10;
 
+    // signImm  
     // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
