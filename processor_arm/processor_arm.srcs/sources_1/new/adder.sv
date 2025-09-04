@@ -2,9 +2,10 @@
 
 module adder (
     input  logic [63:0] addr,
+    input  logic [63:0] sum,
     output logic [63:0] result
 );
 
-  assign result = addr + 64'd4;
+  assign result = addr + sum;
 
 endmodule
