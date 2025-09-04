@@ -7,13 +7,13 @@ module execute (
     input logic [63:0] signImm_E,
     input logic [63:0] readData1_E,
     input logic [63:0] readData2_E,
-    input logic [63:0] aluResult_E,
-    input logic [63:0] writeData_E,
+    output logic [63:0] aluResult_E,
+    output logic [63:0] writeData_E,
     output logic [63:0] PCBranch_E,
     output logic zero_E
 );
 
-  input logic [63:0] salidaDelMultiplexor;
+  logic [63:0] salidaDelMultiplexor;
   mux2 mux (
       .d0(readData2_E),
       .d1(signImm_E),
@@ -23,7 +23,7 @@ module execute (
 
   adder sumador (
       .addr(PC_E),
-      .sum(signImm_E << 1),
+      .sum(signImm_E << 2),
       .result(PCBranch_E)
   );
 
