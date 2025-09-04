@@ -33,114 +33,123 @@ module execute_tb ();
   logic [3:0] SUB = 4'b0110;
   logic [3:0] PASS_INPUT_B = 4'b0111;
 
-  logic clk = 0;
-
-  // Clock de 5ns
-  initial clk = 0;
-  always #5 clk = ~clk;
+  // logic clk = 0;
+  //
+  // // Clock de 5ns
+  // initial clk = 0;
+  // always #5 clk = ~clk;
 
   initial begin
     $display("---------- TESTS EXECUTE  ----------");
 
-    @(negedge clk);
+    // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
     readData1_E = 64'd3;
     readData2_E = 64'd4;
     AluSrc = 1'b0;
     AluControl = AND;
-    @(posedge clk);
+    // @(posedge clk);
+    #10;
 
-
-    @(negedge clk);
+    // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
     readData1_E = 64'd3;
     readData2_E = 64'd4;
     AluSrc = 1'b0;
     AluControl = OR;
-    @(posedge clk);
+    // @(posedge clk);
+    #10;
 
 
-    @(negedge clk);
+    // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
     readData1_E = 64'd3;
     readData2_E = 64'd4;
     AluSrc = 1'b0;
     AluControl = ADD;
-    @(posedge clk);
+    // @(posedge clk);
+    #10;
 
 
-    @(negedge clk);
+    // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
     readData1_E = 64'd3;
     readData2_E = 64'd4;
     AluSrc = 1'b0;
     AluControl = SUB;
-    @(posedge clk);
+    // @(posedge clk);
+    #10;
 
-    @(negedge clk);
+    // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
     readData1_E = 64'd3;
     readData2_E = 64'd4;
     AluSrc = 1'b0;
     AluControl = PASS_INPUT_B;
-    @(posedge clk);
+    // @(posedge clk);
+    #10;
 
-    @(negedge clk);
+    // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
     readData1_E = 64'd3;
     readData2_E = 64'd4;
     AluSrc = 1'd1;
     AluControl = AND;
-    @(posedge clk);
+    // @(posedge clk);
+    #10;
 
 
-    @(negedge clk);
+    // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
     readData1_E = 64'd3;
     readData2_E = 64'd4;
     AluSrc = 1'd1;
     AluControl = OR;
-    @(posedge clk);
+    // @(posedge clk);
+    #10;
 
 
-    @(negedge clk);
+    // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
     readData1_E = 64'd3;
     readData2_E = 64'd4;
     AluSrc = 1'd1;
     AluControl = ADD;
-    @(posedge clk);
+    // @(posedge clk);
+    #10;
 
 
-    @(negedge clk);
+    // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
     readData1_E = 64'd3;
     readData2_E = 64'd4;
     AluSrc = 1'd1;
     AluControl = SUB;
-    @(posedge clk);
+    // @(posedge clk);
+    #10;
 
-    @(negedge clk);
+    // @(negedge clk);
     PC_E = 64'd1;
     signImm_E = 64'd2;
     readData1_E = 64'd3;
     readData2_E = 64'd4;
     AluSrc = 1'd1;
     AluControl = PASS_INPUT_B;
-    @(posedge clk);
+    // @(posedge clk);
+    #10;
 
     $display("---------- TESTS EXECUTE DONE ----------");
 
-    @(negedge clk);
+    // @(negedge clk);
     $finish;
   end
 

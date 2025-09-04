@@ -3,55 +3,95 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="fetch_tb_behav.wdb" id="1">
+      <db_ref path="execute_tb_behav.wdb" id="1">
          <top_modules>
-            <top_module name="fetch_tb" />
+            <top_module name="execute_tb" />
             <top_module name="glbl" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="354.501 ns"></ZoomEndTime>
+      <ZoomEndTime time="584.550 ns"></ZoomEndTime>
       <Cursor1Time time="8.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="167"></NameColumnWidth>
-      <ValueColumnWidth column_width="134"></ValueColumnWidth>
+      <ValueColumnWidth column_width="130"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="8" />
+   <WVObjectSize size="18" />
    <wvobject fp_name="divider404" type="divider">
       <obj_property name="label">Clk</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="BkColor">#FFA500</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/fetch_tb/clk">
-      <obj_property name="ElementShortName">clk</obj_property>
-      <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
    <wvobject fp_name="divider403" type="divider">
       <obj_property name="label">Branch</obj_property>
       <obj_property name="DisplayName">label</obj_property>
       <obj_property name="BkColor">#00FFFF</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/fetch_tb/PCSrc_F">
-      <obj_property name="ElementShortName">PCSrc_F</obj_property>
-      <obj_property name="ObjectShortName">PCSrc_F</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/fetch_tb/PCBranch_F">
-      <obj_property name="ElementShortName">PCBranch_F[63:0]</obj_property>
-      <obj_property name="ObjectShortName">PCBranch_F[63:0]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/fetch_tb/reset">
-      <obj_property name="ElementShortName">reset</obj_property>
-      <obj_property name="ObjectShortName">reset</obj_property>
-   </wvobject>
    <wvobject fp_name="divider210" type="divider">
       <obj_property name="label">PC</obj_property>
       <obj_property name="DisplayName">label</obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/fetch_tb/imem_addr_F">
-      <obj_property name="ElementShortName">imem_addr_F[63:0]</obj_property>
-      <obj_property name="ObjectShortName">imem_addr_F[63:0]</obj_property>
+   <wvobject type="logic" fp_name="/execute_tb/AluSrc">
+      <obj_property name="ElementShortName">AluSrc</obj_property>
+      <obj_property name="ObjectShortName">AluSrc</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/execute_tb/AluControl">
+      <obj_property name="ElementShortName">AluControl[3:0]</obj_property>
+      <obj_property name="ObjectShortName">AluControl[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/execute_tb/PC_E">
+      <obj_property name="ElementShortName">PC_E[63:0]</obj_property>
+      <obj_property name="ObjectShortName">PC_E[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/execute_tb/signImm_E">
+      <obj_property name="ElementShortName">signImm_E[63:0]</obj_property>
+      <obj_property name="ObjectShortName">signImm_E[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/execute_tb/readData1_E">
+      <obj_property name="ElementShortName">readData1_E[63:0]</obj_property>
+      <obj_property name="ObjectShortName">readData1_E[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/execute_tb/readData2_E">
+      <obj_property name="ElementShortName">readData2_E[63:0]</obj_property>
+      <obj_property name="ObjectShortName">readData2_E[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/execute_tb/aluResult_E">
+      <obj_property name="ElementShortName">aluResult_E[63:0]</obj_property>
+      <obj_property name="ObjectShortName">aluResult_E[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/execute_tb/writeData_E">
+      <obj_property name="ElementShortName">writeData_E[63:0]</obj_property>
+      <obj_property name="ObjectShortName">writeData_E[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/execute_tb/PCBranch_E">
+      <obj_property name="ElementShortName">PCBranch_E[63:0]</obj_property>
+      <obj_property name="ObjectShortName">PCBranch_E[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/execute_tb/zero_E">
+      <obj_property name="ElementShortName">zero_E</obj_property>
+      <obj_property name="ObjectShortName">zero_E</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/execute_tb/AND">
+      <obj_property name="ElementShortName">AND[3:0]</obj_property>
+      <obj_property name="ObjectShortName">AND[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/execute_tb/OR">
+      <obj_property name="ElementShortName">OR[3:0]</obj_property>
+      <obj_property name="ObjectShortName">OR[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/execute_tb/ADD">
+      <obj_property name="ElementShortName">ADD[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ADD[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/execute_tb/SUB">
+      <obj_property name="ElementShortName">SUB[3:0]</obj_property>
+      <obj_property name="ObjectShortName">SUB[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/execute_tb/PASS_INPUT_B">
+      <obj_property name="ElementShortName">PASS_INPUT_B[3:0]</obj_property>
+      <obj_property name="ObjectShortName">PASS_INPUT_B[3:0]</obj_property>
    </wvobject>
 </wave_config>
