@@ -86,3 +86,9 @@
 !*.elf
 !*.bmm
 !*.xmp
+
+# re-incluir archivos del zip de los profes
+!*.s
+!Makefile
+!memmap
+!*.sh
