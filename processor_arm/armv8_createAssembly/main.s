@@ -3,7 +3,7 @@
 	
 	add x1,x0,x1
 infLoop:  
-	cbz XZR infLoop
+	cbz XZR, infLoop
 
 	
    /* Me piden programar en LEGV8 este codigo basicamente */
