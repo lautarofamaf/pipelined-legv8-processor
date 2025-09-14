@@ -9,13 +9,14 @@ module imem #(
     logic [N-1:0] ROM [0:63] = '{default:32'h0};
 
     initial begin
-        ROM[1]  = 32'haa1f03fd;
-        ROM[2]  = 32'hf80003de;
-        ROM[3]  = 32'hcb0803de;
-        ROM[4]  = 32'hb400005e;
-        ROM[5]  = 32'hb4ffffbf;
-
+        ROM [0:7] ='{32'h8b1f03fd,
+        32'h8b1f03fc,
+        32'hf800039d,
+        32'h8b0103bd,
+        32'h8b08039c,
+        32'hcb0103de,
+        32'hb400005e,
+        32'hb4ffff7f};
     end
-
   assign q = ROM[addr];
 endmodule

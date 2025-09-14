@@ -19,18 +19,19 @@
 // NOTA: En regfile creo que era tengo que mi CPU al iniciarse ya tiene
 // R[Xi] = i
 
-// X30 = N
+// X30 = N = 30
 // X29 = i
 // X28 = direccion de memoria actual = i * 8
 
+ADD X29, XZR, XZR 
+ADD X28, XZR, XZR 
 
-inicializo:
-  ORR X29, XZR, XZR // X28 = 0
+LOOP:
+  STUR X29, [X28, #0]
+  ADD X29, X29, X1
+  ADD X28, X28, X8
+  SUB X30, X30, X1
+  CBZ X30, END_LOOP
+  CBZ XZR, LOOP
 
-loop:
-  STUR X30, [X30, #0]  // M[i] = R[i]
-  SUB X30, X30, X8 // i--
-
-  CBZ X30, finLoop
-  CBZ XZR, loop
-finLoop:
+END_LOOP:
