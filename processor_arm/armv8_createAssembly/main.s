@@ -1,40 +1,41 @@
-	.text
-	.org 0x0000
-	
-	// add x1,x0,x1
-  //infLoop:  
-  //cbz XZR, infLoop
+.text
+.org 0x0000
 
-	
-   /* Me piden programar en LEGV8 este codigo basicamente */
-   // N = Cantidad de direcciones de memoria
-   // i = Direccion base (0) y voy aumentando en 1/4/8/16/32 <- ver bien cual
-   // Asignar en la memoria 
-   //
-   // for (uint64_t i = 0; i < N; ++i) {
-   //     mem[i] = i;
-   // }
-   //
 
-// NOTA: En regfile creo que era tengo que mi CPU al iniciarse ya tiene
-// R[Xi] = i
-
-// X30 = N = 30
 // X29 = i
 // X28 = direccion de memoria actual = i * 8
 
+// 2-A 
 ADD X29, XZR, XZR 
-ADD X28, XZR, XZR 
+ADD X28, XZR, XZR
 
-LOOP:
+LOOP_A:
+  // x15 = N = 15
   STUR X29, [X28, #0]
   ADD X29, X29, X1
   ADD X28, X28, X8
-  SUB X30, X30, X1
-  CBZ X30, END_LOOP
-  CBZ XZR, LOOP
+  SUB x15, x15, X1
+  CBZ x15, END_LOOP_A
+  CBZ XZR, LOOP_A
 
-END_LOOP:
+END_LOOP_A:
+  // x29=0, x28=0, x15=15
+  ADD X29, XZR, XZR 
+  ADD X28, XZR, XZR
+  ADD X15, X10, X5 
+  CBZ XZR, LOOP_B
+
+LOOP_B:
+  LDUR X29, [X28, #0]
+  ADD X28, X28, X8
+  ADD X0, X0, X29
+
+  SUB X10, X10, X1
+  CBZ X10, END_LOOP_B
+  CBZ XZR, LOOP_B
+
+END_LOOP_B:
+  STUR X0, [X28, #0]
 
 
 INF_LOOP:
