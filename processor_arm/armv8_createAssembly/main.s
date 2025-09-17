@@ -1,16 +1,11 @@
 .text
 .org 0x0000
 
-
-// X29 = i
-// X28 = direccion de memoria actual = i * 8
-
 // 2-A 
 ADD X29, XZR, XZR 
 ADD X28, XZR, XZR
 
 LOOP_A:
-  // x20 = N = 20
   STUR X29, [X28, #0]
   ADD X29, X29, X1
   ADD X28, X28, X8
@@ -19,7 +14,6 @@ LOOP_A:
   CBZ XZR, LOOP_A
 
 END_LOOP_A:
-  // x29=0, x28=0, x15=15
   ADD X29, XZR, XZR 
   ADD X28, XZR, XZR
   ADD X20, X10, X10 
@@ -36,7 +30,18 @@ LOOP_B:
 
 END_LOOP_B:
   STUR X0, [X28, #0]
+  ADD X29, XZR, XZR
+  ADD X0, XZR, XZR
+  CBZ XZR, LOOP_C
 
+LOOP_C:
+  ADD X29, X29, X17
+  SUB X16, X16, X1
+  CBZ X16, END_LOOP_C
+  CBZ XZR, LOOP_C
+
+END_LOOP_C:
+  STUR X29, [X0, #0]
 
 INF_LOOP:
   CBZ XZR, INF_LOOP
