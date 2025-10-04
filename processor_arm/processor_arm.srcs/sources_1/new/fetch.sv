@@ -29,9 +29,9 @@ module fetch (
 
   // adder suma 4
   adder sumador (
-      .addr(PC),
-      .sum(64'd4),
-      .result(PCPlus4)
+      .a(PC),
+      .b(64'd4),
+      .y(PCPlus4)
   );
 
   // salida hacia memoria de instrucciones

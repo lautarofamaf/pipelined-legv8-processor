@@ -25,9 +25,9 @@ module execute (
   );
 
   adder sumador (
-      .addr(PC_E),
-      .sum(signImm_E << 2),
-      .result(PCBranch_E)
+      .a(PC_E),
+      .b(signImm_E << 2),
+      .y(PCBranch_E)
   );
 
   alu alalu (

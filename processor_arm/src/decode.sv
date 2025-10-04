@@ -4,6 +4,7 @@ module decode #(parameter N = 64)
 					(input logic regWrite_D, reg2loc_D, clk,
 					input logic [N-1:0] writeData3_D,
 					input logic [31:0] instr_D,
+					input logic [4:0] wa3,
 					output logic [N-1:0] signImm_D, readData1_D, readData2_D); 
 					
 	logic [4:0] ra2;			

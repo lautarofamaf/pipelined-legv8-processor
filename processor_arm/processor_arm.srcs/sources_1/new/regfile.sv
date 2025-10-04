@@ -28,21 +28,32 @@ module regfile (
     registers[31] = XZRContent;
   end
 
-  // data = registro[direccion]
+// Logica de Bypass (Forwarding Interno)
   always_comb begin
-    rd1 = registers[ra1];
-    rd2 = registers[ra2];
+      // Bypassing para rd1: Si se está escribiendo (we3) el registro que leemos (ra1 == wa3)
+      // y no es XZR, usamos el dato de bypass (wd3). Si no, leemos de la memoria.
+      if (we3 && (ra1 == wa3) && (ra1 != XZR)) begin
+          rd1 = wd3;
+      end else begin
+          rd1 = registers[ra1];
+      end
+  
+      // Mismo chequeo para el puerto de lectura 2 (rd2)
+      if (we3 && (ra2 == wa3) && (ra2 != XZR)) begin
+          rd2 = wd3;
+      end else begin
+          rd2 = registers[ra2];
+      end
   end
 
-  always_ff @(posedge clk) begin
+always_ff @(posedge clk) begin
     logic        writeEnable = we3;
     logic [ 4:0] writeAddress = wa3;
     logic [63:0] writeData = wd3;
-
     if (writeEnable && writeAddress != XZR) begin
       registers[writeAddress] <= writeData;
     end
-  end
+end
 
 
 endmodule
