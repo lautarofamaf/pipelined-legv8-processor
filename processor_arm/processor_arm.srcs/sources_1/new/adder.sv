@@ -1,11 +1,9 @@
-`timescale 1ns / 1ps
+// ADDER
 
-module adder (
-    input  logic [63:0] addr,
-    input  logic [63:0] sum,
-    output logic [63:0] result
-);
-
-  assign result = addr + sum;
-
+module adder #(parameter N = 64)
+					(input logic [N-1:0] a, b,
+					output logic [N-1:0] y);
+					
+	assign y = a + b;
+	
 endmodule
