@@ -1,0 +1,31 @@
+
+Merging program properties
+
+
+Discarded input sections
+
+ .note.gnu.property
+                0x0000000000000000        0x0 main.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+ram              0x0000000000000000 0x0000000000400000
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+LOAD main.o
+
+.text           0x0000000000000000       0xfc
+ *(.text*)
+ .text          0x0000000000000000       0xfc main.o
+
+.data           0x00000000000000fc        0x0
+ .data          0x00000000000000fc        0x0 main.o
+
+.bss            0x00000000000000fc        0x0
+ *(.bss*)
+ .bss           0x00000000000000fc        0x0 main.o
+OUTPUT(main.elf elf64-littleaarch64)
+LOAD linker stubs
