@@ -1,0 +1,64 @@
+#-----------------------------------------------------------
+# Vivado v2024.2 (64-bit)
+# SW Build 5239630 on Fri Nov 08 22:34:34 MST 2024
+# IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
+# SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
+# Start of session at: Sat Oct  4 02:41:00 2025
+# Process ID         : 109336
+# Current directory  : /home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/processor_arm.runs/synth_1
+# Command line       : vivado -log processor_tb.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source processor_tb.tcl
+# Log file           : /home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/processor_arm.runs/synth_1/processor_tb.vds
+# Journal file       : /home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/processor_arm.runs/synth_1/vivado.jou
+# Running On         : ThinkpadJx
+# Platform           : Arch
+# Operating System   : Arch Linux
+# Processor Detail   : 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
+# CPU Frequency      : 3100.000 MHz
+# CPU Physical cores : 4
+# CPU Logical cores  : 8
+# Host memory        : 33354 MB
+# Swap memory        : 4294 MB
+# Total Virtual      : 37649 MB
+# Available Virtual  : 22086 MB
+#-----------------------------------------------------------
+source processor_tb.tcl -notrace
+Command: synth_design -top processor_tb -part xc7s50csga324-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7s50'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7s50'
+INFO: [Device 21-403] Loading part xc7s50csga324-1
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 7 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 109379
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1836.453 ; gain = 435.832 ; free physical = 4109 ; free virtual = 20381
+---------------------------------------------------------------------------------
+INFO: [Synth 8-11241] undeclared symbol 'DM_writeEnable', assumed default net type 'wire' [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/src/processor_arm.sv:46]
+INFO: [Synth 8-11241] undeclared symbol 'DM_readEnable', assumed default net type 'wire' [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/src/processor_arm.sv:47]
+WARNING: [Synth 8-10180] variable 'writeEnable' must explicitly be declared as automatic or static [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/processor_arm.srcs/sources_1/new/regfile_old.sv:38]
+WARNING: [Synth 8-10180] variable 'writeAddress' must explicitly be declared as automatic or static [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/processor_arm.srcs/sources_1/new/regfile_old.sv:39]
+WARNING: [Synth 8-10180] variable 'writeData' must explicitly be declared as automatic or static [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/processor_arm.srcs/sources_1/new/regfile_old.sv:40]
+INFO: [Synth 8-6157] synthesizing module 'processor_tb' [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/tb/processor_tb.sv:4]
+WARNING: [Synth 8-11581] system task call 'stop' not supported [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/tb/processor_tb.sv:26]
+INFO: [Synth 8-6157] synthesizing module 'processor_arm' [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/src/processor_arm.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'controller' [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/src/controller.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'maindec' [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/processor_arm.srcs/sources_1/new/maindec.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'maindec' (0#1) [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/processor_arm.srcs/sources_1/new/maindec.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'aludec' [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/src/aludec.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'aludec' (0#1) [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/src/aludec.sv:3]
+INFO: [Synth 8-6155] done synthesizing module 'controller' (0#1) [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/src/controller.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'datapath' [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/src/datapath.sv:3]
+	Parameter N bound to: 64 - type: integer 
+ERROR: [Synth 8-859] too many parameter overrides for module 'fetch' [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/src/datapath.sv:24]
+ERROR: [Synth 8-6156] failed synthesizing module 'datapath' [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/src/datapath.sv:3]
+ERROR: [Synth 8-6156] failed synthesizing module 'processor_arm' [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/src/processor_arm.sv:3]
+ERROR: [Synth 8-6156] failed synthesizing module 'processor_tb' [/home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/tb/processor_tb.sv:4]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1907.422 ; gain = 506.801 ; free physical = 4078 ; free virtual = 20290
+---------------------------------------------------------------------------------
+RTL Elaboration failed
+INFO: [Common 17-83] Releasing license: Synthesis
+17 Infos, 4 Warnings, 0 Critical Warnings and 5 Errors encountered.
+synth_design failed
+ERROR: [Common 17-69] Command failed: Synthesis failed - please see the console or run log file for details
+INFO: [Common 17-206] Exiting Vivado at Sat Oct  4 02:41:13 2025...

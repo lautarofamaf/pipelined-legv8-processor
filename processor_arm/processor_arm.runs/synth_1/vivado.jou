@@ -1,0 +1,24 @@
+#-----------------------------------------------------------
+# Vivado v2024.2 (64-bit)
+# SW Build 5239630 on Fri Nov 08 22:34:34 MST 2024
+# IP Build 5239520 on Sun Nov 10 16:12:51 MST 2024
+# SharedData Build 5239561 on Fri Nov 08 14:39:27 MST 2024
+# Start of session at: Sat Oct  4 02:41:00 2025
+# Process ID         : 109336
+# Current directory  : /home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/processor_arm.runs/synth_1
+# Command line       : vivado -log processor_tb.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source processor_tb.tcl
+# Log file           : /home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/processor_arm.runs/synth_1/processor_tb.vds
+# Journal file       : /home/jcruz/Documentos/Materias/arquitectura-cpu/lab1-adc2025-g40/processor_arm/processor_arm.runs/synth_1/vivado.jou
+# Running On         : ThinkpadJx
+# Platform           : Arch
+# Operating System   : Arch Linux
+# Processor Detail   : 11th Gen Intel(R) Core(TM) i7-1165G7 @ 2.80GHz
+# CPU Frequency      : 3100.000 MHz
+# CPU Physical cores : 4
+# CPU Logical cores  : 8
+# Host memory        : 33354 MB
+# Swap memory        : 4294 MB
+# Total Virtual      : 37649 MB
+# Available Virtual  : 22086 MB
+#-----------------------------------------------------------
+source processor_tb.tcl -notrace
