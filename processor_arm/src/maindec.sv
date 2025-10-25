@@ -34,7 +34,12 @@ module maindec (
         ALUSrc   = 1'b1;
         MemWrite = 1'b1;
       end
-      11'b110_1001_1011: begin  // lsl
+      11'b110_1001_1011: begin  // lsr
+        ALUSrc   = 1'b0;
+        RegWrite = 1'b1;
+        ALUOp    = 2'b10;
+      end
+      11'b110_1001_1010: begin  // lsr
         ALUSrc   = 1'b0;
         RegWrite = 1'b1;
         ALUOp    = 2'b10;

@@ -16,6 +16,7 @@ module alu (
   logic [ 3:0] SUB = 4'b0110;
   logic [ 3:0] PASS_INPUT = 4'b0111;
   logic [ 3:0] LSL = 4'b1000;
+  logic [ 3:0] LSR = 4'b1001;
 
   // alu logic
   logic [63:0] zeros = 64'b0;
@@ -27,6 +28,7 @@ module alu (
       SUB:        result = a - b;
       PASS_INPUT: result = b;
       LSL:        result = a << shamt;
+      LSR:        result = a >> shamt;
       default:    result = zeros;
     endcase
     // zero flag

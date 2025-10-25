@@ -1,1 +1,2 @@
-LSL X1, X4, 2
+LSL X26, X1, 1
+LSR X27, X2, 1

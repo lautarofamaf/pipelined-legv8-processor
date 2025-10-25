@@ -9,12 +9,14 @@ module imem #(
     logic [N-1:0] ROM [0:127] = '{default:32'h0};
 
     initial begin
-ROM [0:8] = '{
-    32'hd37f0881, // LSL X1, X4, 2 
+ROM [0:10] ='{
+    32'hd37f043a, // LSL X26, X1, 1
+    32'hd35f045b, // LSR X27, X2, 1
 32'hcb1f03ff,
 32'hcb1f03ff,
 32'hcb1f03ff,
-32'hf8000001,
+32'hf800001a,
+32'hf800801b,
 32'hcb1f03ff,
 32'hcb1f03ff,
 32'hcb1f03ff,
