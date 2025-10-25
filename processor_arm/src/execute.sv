@@ -7,6 +7,7 @@ module execute (
     input logic [63:0] signImm_E,
     input logic [63:0] readData1_E,
     input logic [63:0] readData2_E,
+    input logic [5:0] shamt,
     output logic [63:0] aluResult_E,
     output logic [63:0] writeData_E,
     output logic [63:0] PCBranch_E,
@@ -34,6 +35,7 @@ module execute (
       .a(readData1_E),
       .b(salidaDelMultiplexor),
       .ALUControl(AluControl),
+      .shamt(shamt),
       .result(aluResult_E),
       .zero(zero_E)
   );

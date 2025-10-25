@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="1,025.730 ns"></ZoomStartTime>
-      <ZoomEndTime time="1,692.251 ns"></ZoomEndTime>
-      <Cursor1Time time="1,276.936 ns"></Cursor1Time>
+      <ZoomStartTime time="0.000 ns"></ZoomStartTime>
+      <ZoomEndTime time="166.886 ns"></ZoomEndTime>
+      <Cursor1Time time="175.921 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="167"></NameColumnWidth>
-      <ValueColumnWidth column_width="118"></ValueColumnWidth>
+      <NameColumnWidth column_width="141"></NameColumnWidth>
+      <ValueColumnWidth column_width="165"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="15" />
+   <WVObjectSize size="20" />
    <wvobject fp_name="divider404" type="divider">
       <obj_property name="label">Clk</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -33,30 +33,6 @@
    <wvobject fp_name="divider210" type="divider">
       <obj_property name="label">PC</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/new_tb/i_sw">
-      <obj_property name="ElementShortName">i_sw[15:0]</obj_property>
-      <obj_property name="ObjectShortName">i_sw[15:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/new_tb/o_led">
-      <obj_property name="ElementShortName">o_led[15:0]</obj_property>
-      <obj_property name="ObjectShortName">o_led[15:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/new_tb/D0_seg">
-      <obj_property name="ElementShortName">D0_seg[7:0]</obj_property>
-      <obj_property name="ObjectShortName">D0_seg[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/new_tb/D1_seg">
-      <obj_property name="ElementShortName">D1_seg[7:0]</obj_property>
-      <obj_property name="ObjectShortName">D1_seg[7:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/new_tb/D0_a">
-      <obj_property name="ElementShortName">D0_a[3:0]</obj_property>
-      <obj_property name="ObjectShortName">D0_a[3:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/new_tb/D1_a">
-      <obj_property name="ElementShortName">D1_a[3:0]</obj_property>
-      <obj_property name="ObjectShortName">D1_a[3:0]</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/new_tb/i_mclk">
       <obj_property name="ElementShortName">i_mclk</obj_property>
@@ -79,9 +55,56 @@
       <obj_property name="ElementShortName">q[31:0]</obj_property>
       <obj_property name="ObjectShortName">q[31:0]</obj_property>
    </wvobject>
+   <wvobject type="array" fp_name="/new_tb/dut/dp/ID_EX/q">
+      <obj_property name="ElementShortName">q[276:0]</obj_property>
+      <obj_property name="ObjectShortName">q[276:0]</obj_property>
+   </wvobject>
    <wvobject type="array" fp_name="/new_tb/dut/instrMem/ROM">
-      <obj_property name="ElementShortName">ROM[0:63][31:0]</obj_property>
-      <obj_property name="ObjectShortName">ROM[0:63][31:0]</obj_property>
-      <obj_property name="isExpanded"></obj_property>
+      <obj_property name="ElementShortName">ROM[0:127][31:0]</obj_property>
+      <obj_property name="ObjectShortName">ROM[0:127][31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/new_tb/dut/dp/EXECUTE/alalu/shamt">
+      <obj_property name="ElementShortName">shamt[5:0]</obj_property>
+      <obj_property name="ObjectShortName">shamt[5:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/new_tb/dut/dp/EXECUTE/aluResult_E">
+      <obj_property name="ElementShortName">aluResult_E[63:0]</obj_property>
+      <obj_property name="ObjectShortName">aluResult_E[63:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/new_tb/dut/dp/WRITEBACK/aluResult_W">
+      <obj_property name="ElementShortName">aluResult_W[63:0]</obj_property>
+      <obj_property name="ObjectShortName">aluResult_W[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/new_tb/dut/dp/WRITEBACK/writeData3_W">
+      <obj_property name="ElementShortName">writeData3_W[63:0]</obj_property>
+      <obj_property name="ObjectShortName">writeData3_W[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/new_tb/dut/dp/DECODE/writeData3_D">
+      <obj_property name="ElementShortName">writeData3_D[63:0]</obj_property>
+      <obj_property name="ObjectShortName">writeData3_D[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/new_tb/dut/AluControl">
+      <obj_property name="ElementShortName">AluControl[3:0]</obj_property>
+      <obj_property name="ObjectShortName">AluControl[3:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/new_tb/dut/c/AluControl">
+      <obj_property name="ElementShortName">AluControl[3:0]</obj_property>
+      <obj_property name="ObjectShortName">AluControl[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/new_tb/dut/c/instr">
+      <obj_property name="ElementShortName">instr[10:0]</obj_property>
+      <obj_property name="ObjectShortName">instr[10:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/new_tb/dut/dp/EXECUTE/readData1_E">
+      <obj_property name="ElementShortName">readData1_E[63:0]</obj_property>
+      <obj_property name="ObjectShortName">readData1_E[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/new_tb/dut/dp/EXECUTE/salidaDelMultiplexor">
+      <obj_property name="ElementShortName">salidaDelMultiplexor[63:0]</obj_property>
+      <obj_property name="ObjectShortName">salidaDelMultiplexor[63:0]</obj_property>
    </wvobject>
 </wave_config>

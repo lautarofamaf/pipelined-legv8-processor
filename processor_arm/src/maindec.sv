@@ -34,6 +34,11 @@ module maindec (
         ALUSrc   = 1'b1;
         MemWrite = 1'b1;
       end
+      11'b110_1001_1011: begin  // lsl
+        ALUSrc   = 1'b0;
+        RegWrite = 1'b1;
+        ALUOp    = 2'b10;
+      end
       default: begin
         if (Op[10:3] == 8'b101_1010_0) begin  // CBZ
           Reg2Loc = 1'b1;

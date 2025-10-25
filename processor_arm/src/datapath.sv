@@ -20,9 +20,10 @@ module datapath #(parameter N = 64)
 	logic [N-1:0] signImm_D, readData1_D, readData2_D;
 	logic zero_E;
 	logic [95:0] qIF_ID;
-	logic [270:0] qID_EX;
+	logic [276:0] qID_EX;
 	logic [202:0] qEX_MEM;
 	logic [134:0] qMEM_WB;
+	logic [5:0] shamt;
 	
 	fetch 	#(64) 	FETCH 	(.PCSrc_F(PCSrc),
 										.clk(clk),
@@ -45,12 +46,13 @@ module datapath #(parameter N = 64)
 										.signImm_D(signImm_D), 
 										.readData1_D(readData1_D),
 										.readData2_D(readData2_D),
-										.wa3_D(qMEM_WB[4:0]));				
+										.wa3_D(qMEM_WB[4:0]),
+										.shamt(shamt));				
 																									
 									
-	flopr 	#(271)	ID_EX 	(.clk(clk),
+	flopr 	#(277)	ID_EX 	(.clk(clk),
 										.reset(reset), 
-										.d({AluSrc, AluControl, Branch, memRead, memWrite, regWrite, memtoReg,	
+										.d({shamt, AluSrc, AluControl, Branch, memRead, memWrite, regWrite, memtoReg,	
 											qIF_ID[95:32], signImm_D, readData1_D, readData2_D, qIF_ID[4:0]}),
 										.q(qID_EX));	
 	
@@ -61,6 +63,7 @@ module datapath #(parameter N = 64)
 										.signImm_E(qID_EX[196:133]), 
 										.readData1_E(qID_EX[132:69]), 
 										.readData2_E(qID_EX[68:5]), 
+										.shamt(qID_EX[276:271]),
 										.PCBranch_E(PCBranch_E), 
 										.aluResult_E(aluResult_E), 
 										.writeData_E(writeData_E), 
