@@ -1,5 +1,5 @@
-module forwarding_unit (input logic [4:0] Rn,
-                        input logic [4:0] Rm,
+module forwarding_unit (input logic [4:0] id_ex_Rn,
+                        input logic [4:0] id_ex_Rm,
                         input logic [4:0] ex_mem_Rd,
                         input logic [4:0] mem_wb_Rd,
                         input logic ex_mem_regWrite,
@@ -17,14 +17,14 @@ module forwarding_unit (input logic [4:0] Rn,
         if (    // EX hazard
             ex_mem_regWrite &&
             ex_mem_Rd != XZR &&
-            ex_mem_Rd == Rn
+            ex_mem_Rd == id_ex_Rn
         ) begin
             forward_A = 2'b10;
         end
         else if (// MEM hazard
             mem_wb_regWrite &&
             mem_wb_Rd != XZR &&
-            mem_wb_Rd == Rn
+            mem_wb_Rd == id_ex_Rn
         ) begin
             forward_A = 2'b01;
         end
@@ -32,14 +32,14 @@ module forwarding_unit (input logic [4:0] Rn,
         if (    // EX hazard
             ex_mem_regWrite &&
             ex_mem_Rd != XZR &&
-            ex_mem_Rd == Rm
+            ex_mem_Rd == id_ex_Rm
         ) begin
             forward_B = 2'b10;
         end
         else if (// MEM hazard
             mem_wb_regWrite &&
             mem_wb_Rd != XZR &&
-            mem_wb_Rd == Rm
+            mem_wb_Rd == id_ex_Rm
         ) begin
             forward_B = 2'b01;
         end
