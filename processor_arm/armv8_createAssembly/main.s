@@ -51,7 +51,6 @@ ADD X30, X30, X30
 SUB X21, XZR, X21
 ADD X30, X30, X20
 LDUR X25, [X30, #-8]
-SUB XZR, XZR, XZR
 ADD X30, X30, X30
 ADD X30, X30, X16
 STUR X25, [X30, #-8] // MEM 21:0xA (= MEM 9)
@@ -59,11 +58,3 @@ ADD XZR, XZR, XZR
 ADD XZR, XZR, XZR
 ADD XZR, XZR, XZR
 finloop: CBZ XZR, finloop
-
-/*
-if id ex mem wb 
-   if id ex mem wb
-      if id ex mem wb
-         if id ex mem wb
-            if id ex mem wb
-*/
