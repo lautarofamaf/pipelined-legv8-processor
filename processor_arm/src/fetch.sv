@@ -5,7 +5,8 @@ module fetch (
     input  logic        clk,
     input  logic        reset,
     input  logic [63:0] PCBranch_F,
-    output logic [63:0] imem_addr_F
+    output logic [63:0] imem_addr_F,
+    output logic        PCWrite
 );
   logic [63:0] PC;  // salida del registro
   logic [63:0] PCNext;  // salida del mux
