@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module flopr #(
+module flopre #(
     parameter int N = 64
 ) (
     input logic clk,
