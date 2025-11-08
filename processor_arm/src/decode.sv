@@ -6,10 +6,14 @@ module decode #(parameter N = 64)
 					input logic [31:0] instr_D,
 					output logic [N-1:0] signImm_D, readData1_D, readData2_D, 
 					input logic [4:0] wa3_D,
-					output logic [5:0] shamt);
+					output logic [5:0] shamt,
+					output logic [4:0] rs1_D,
+    				output logic [4:0] rs2_D);
 					
 	logic [4:0] ra2;			
 	assign shamt = instr_D[15:10];
+	assign rs1_D = instr_D[9:5];
+	assign rs2_D = ra2;
 
 	mux2 	#(5) 	ra2mux	(.d0(instr_D[20:16]), .d1(instr_D[4:0]), .s(reg2loc_D), .y(ra2));
 	

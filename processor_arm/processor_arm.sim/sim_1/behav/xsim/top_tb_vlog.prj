@@ -11,15 +11,17 @@ sv xil_defaultlib  \
 "../../../../src/execute.sv" \
 "../../../../src/fetch.sv" \
 "../../../../src/flopr.sv" \
+"../../../../src/forwarding_unit.sv" \
 "../../../../src/imem.sv" \
 "../../../../src/maindec.sv" \
 "../../../../src/memory.sv" \
 "../../../../src/mux2.sv" \
+"../../../../src/mux4.sv" \
 "../../../../src/processor_arm.sv" \
 "../../../../src/regfile_old.sv" \
 "../../../../src/signext.sv" \
 "../../../../src/writeback.sv" \
-"../../../../tb/new_tb.sv" \
+"../../../../tb/top_tb.sv" \
 
 # compile glbl module
 verilog xil_defaultlib "glbl.v"
