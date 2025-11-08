@@ -18,7 +18,7 @@ sv xil_defaultlib  \
 "../../../../src/mux2.sv" \
 "../../../../src/mux4.sv" \
 "../../../../src/processor_arm.sv" \
-"../../../../src/regfile_old.sv" \
+"../../../../src/regfile.sv" \
 "../../../../src/signext.sv" \
 "../../../../src/writeback.sv" \
 "../../../../tb/new_tb.sv" \
