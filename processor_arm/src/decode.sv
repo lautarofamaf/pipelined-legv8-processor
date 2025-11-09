@@ -28,10 +28,10 @@ module decode #(parameter N = 64)
 	signext 		ext		(.a(instr_D), .y(signImm_D));	
 
 	
-	hdu HDU (.id_ex_memRead(qID_EX[264]),
-				.id_ex_Rd(qID_EX[0:4]),
-				.if_id_Rn1(rs1_D),
-				.if_id_Rn2(rs2_D),
-				.stall(stall))																				
+	hdu HDU (.id_ex_memRead(id_ex_memRead),
+				.id_ex_Rd(id_ex_Rd),
+				.if_id_Rn1(if_id_Rn1),
+				.if_id_Rn2(if_id_Rn2),
+				.stall(stall));																				
 										
 endmodule

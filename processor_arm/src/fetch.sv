@@ -23,7 +23,7 @@ module fetch (
   // registro PC
   flopre #(64) pc (
       .d(PCNext),
-      .enable(enable)
+      .enable(enable),
       .clk(clk),
       .reset(reset),
       .q(PC)
