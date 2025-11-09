@@ -56,9 +56,14 @@ module datapath #(parameter N = 64)
 										.wa3_D(qMEM_WB[4:0]),
 										.shamt(shamt),
 										.rs1_D(rs1_D),
-										.rs2_D(rs2_D));				
-																									
-									
+										.rs2_D(rs2_D),
+										.id_ex_memRead(qID_EX[264]),
+										.id_ex_Rd(qID_EX[0:4]),
+										.if_id_Rn1(rs1_D),
+										.if_id_Rn2(rs2_D),
+										.stall(stall));				
+
+
 	flopre 	#(287)	ID_EX 	(.clk(clk),
 										.enable(enable),
 										.reset(reset), 

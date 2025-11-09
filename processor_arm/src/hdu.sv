@@ -9,7 +9,10 @@ module hdu (input logic id_ex_memRead,
     always_comb begin
         stall = 1'b0;
         if (id_ex_memRead &&
-           ((id_ex_Rd = if_id_Rn1) || (id_ex_Rd = if_id_Rn2))) begin
+            id_ex_Rd != XZR &&
+           ((id_ex_Rd == if_id_Rn1) || (id_ex_Rd == if_id_Rn2))
+        )
+        begin
             stall = 1'b1;
         end
     end

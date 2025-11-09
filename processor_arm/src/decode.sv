@@ -8,7 +8,12 @@ module decode #(parameter N = 64)
 					input logic [4:0] wa3_D,
 					output logic [5:0] shamt,
 					output logic [4:0] rs1_D,
-    				output logic [4:0] rs2_D);
+    				output logic [4:0] rs2_D,
+					input logic id_ex_memRead,
+					input logic [4:0] id_ex_Rd,
+					input logic [4:0] if_id_Rn1,
+					input logic [4:0] if_id_Rn2,
+					output logic stall);
 					
 	logic [4:0] ra2;			
 	assign shamt = instr_D[15:10];
@@ -21,5 +26,12 @@ module decode #(parameter N = 64)
 								 .wd3(writeData3_D), .rd1(readData1_D), .rd2(readData2_D));
 									
 	signext 		ext		(.a(instr_D), .y(signImm_D));	
+
 	
+	hdu HDU (.id_ex_memRead(qID_EX[264]),
+				.id_ex_Rd(qID_EX[0:4]),
+				.if_id_Rn1(rs1_D),
+				.if_id_Rn2(rs2_D),
+				.stall(stall))																				
+										
 endmodule
