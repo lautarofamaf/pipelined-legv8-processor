@@ -32,6 +32,8 @@ module datapath #(parameter N = 64)
 	logic [N-1:0] readData1_E, readData2_E;
 	logic enable, stall;
 	
+	assign enable = !stall;
+
 	fetch 	#(64) 	FETCH 	(.PCSrc_F(PCSrc),
 										.clk(clk),
 										.reset(reset),
@@ -68,7 +70,14 @@ module datapath #(parameter N = 64)
 
 	flopr 	#(287)	ID_EX 	(.clk(clk),
 										.reset(reset), 
-										.d({rs1_D, rs2_D, shamt, AluSrc, AluControl, Branch, memRead, memWrite, regWrite, memtoReg,	
+										.d({rs1_D, rs2_D, shamt,
+											(stall ? 1'b0 : AluSrc),
+                                            (stall ? 4'b0 : AluControl),
+                                            (stall ? 1'b0 : Branch),
+                                            (stall ? 1'b0 : memRead),
+                                            (stall ? 1'b0 : memWrite),
+                                            (stall ? 1'b0 : regWrite),
+                                            (stall ? 1'b0 : memtoReg),	
 											qIF_ID[95:32], signImm_D, readData1_D, readData2_D, qIF_ID[4:0]}),
 										.q(qID_EX));	
 	
