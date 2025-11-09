@@ -5,6 +5,7 @@ module fetch (
     input  logic        clk,
     input  logic        reset,
     input  logic [63:0] PCBranch_F,
+    input  logic enable,
     output logic [63:0] imem_addr_F
 );
   logic [63:0] PC;  // salida del registro
@@ -20,8 +21,9 @@ module fetch (
   );
 
   // registro PC
-  flopr #(64) pc (
+  flopre #(64) pc (
       .d(PCNext),
+      .enable(enable)
       .clk(clk),
       .reset(reset),
       .q(PC)
