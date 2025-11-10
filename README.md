@@ -47,7 +47,24 @@ Para la implementación de las instrucciones de desplazamiento LSL y LSR, se rea
 
 ### Funcionamiento Forwarding Unit y Hazard Detection Unit
 
-#### HDU
+#### Forwarding Unit
+![FU-Working](./processor_arm/images/fu.png)
+```asm
+SUB X4, XZR, X10
+STUR X4, [X0, #40] *// MEM 5:0xFFFFFFFFFFFFFFF6*
+ADD X4, X3, X4
+```
+En el ciclo de reloj que comienza en 145 ns, se hace fetch de la instrucción SUB X4, XZR, X10.
+
+En el siguiente ciclo, se hace fetch de STUR X4, [X0, #40] y se decodifica la instrucción SUB, donde se observa ra1 = 31, ra2 = 10, wa = 4.
+
+En el ciclo siguiente, se ejecuta SUB y se decodifica STUR.
+
+En el ciclo posterior, la instrucción SUB se encuentra en la etapa MEM y se ejecuta STUR.
+
+En este momento, la forwarding unit entra en acción. Observa los inputs que recibe: id_ex_Rm = 4, ex_mem_Rd = 4 y ex_mem_regWrite = 1. Detecta la dependencia de datos RAW y envía la señal forward_B = 01 para que la entrada a la ALU en readData_2 sea el resultado de haber ejecutado el SUB (−10).
+
+#### Hazard Detection Unit
 ![HDU-Working](./processor_arm/images/hdu.png)
 
 ```asm

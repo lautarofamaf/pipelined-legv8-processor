@@ -11,15 +11,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="455.816 ns"></ZoomStartTime>
-      <ZoomEndTime time="586.717 ns"></ZoomEndTime>
-      <Cursor1Time time="465.000 ns"></Cursor1Time>
+      <ZoomStartTime time="117.154 ns"></ZoomStartTime>
+      <ZoomEndTime time="184.955 ns"></ZoomEndTime>
+      <Cursor1Time time="146.754 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="141"></NameColumnWidth>
-      <ValueColumnWidth column_width="137"></ValueColumnWidth>
+      <NameColumnWidth column_width="174"></NameColumnWidth>
+      <ValueColumnWidth column_width="166"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="24" />
+   <WVObjectSize size="12" />
    <wvobject fp_name="divider404" type="divider">
       <obj_property name="label">Clk</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -93,53 +93,5 @@
          <obj_property name="ElementShortName">[0]</obj_property>
          <obj_property name="ObjectShortName">[0]</obj_property>
       </wvobject>
-   </wvobject>
-   <wvobject type="logic" fp_name="/new_tb/dut/dp/stall">
-      <obj_property name="ElementShortName">stall</obj_property>
-      <obj_property name="ObjectShortName">stall</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/new_tb/dut/dp/enable">
-      <obj_property name="ElementShortName">enable</obj_property>
-      <obj_property name="ObjectShortName">enable</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/new_tb/dut/dp/ID_EX/q[270]">
-      <obj_property name="ElementShortName">[270]</obj_property>
-      <obj_property name="ObjectShortName">[270]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/new_tb/dut/dp/ID_EX/q[269]">
-      <obj_property name="ElementShortName">[269]</obj_property>
-      <obj_property name="ObjectShortName">[269]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/new_tb/dut/dp/ID_EX/q[268]">
-      <obj_property name="ElementShortName">[268]</obj_property>
-      <obj_property name="ObjectShortName">[268]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/new_tb/dut/dp/ID_EX/q[267]">
-      <obj_property name="ElementShortName">[267]</obj_property>
-      <obj_property name="ObjectShortName">[267]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/new_tb/dut/dp/ID_EX/q[266]">
-      <obj_property name="ElementShortName">[266]</obj_property>
-      <obj_property name="ObjectShortName">[266]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/new_tb/dut/dp/ID_EX/q[265]">
-      <obj_property name="ElementShortName">[265]</obj_property>
-      <obj_property name="ObjectShortName">[265]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/new_tb/dut/dp/ID_EX/q[264]">
-      <obj_property name="ElementShortName">[264]</obj_property>
-      <obj_property name="ObjectShortName">[264]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/new_tb/dut/dp/ID_EX/q[263]">
-      <obj_property name="ElementShortName">[263]</obj_property>
-      <obj_property name="ObjectShortName">[263]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/new_tb/dut/dp/ID_EX/q[262]">
-      <obj_property name="ElementShortName">[262]</obj_property>
-      <obj_property name="ObjectShortName">[262]</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/new_tb/dut/dp/ID_EX/q[261]">
-      <obj_property name="ElementShortName">[261]</obj_property>
-      <obj_property name="ObjectShortName">[261]</obj_property>
    </wvobject>
 </wave_config>
