@@ -11,8 +11,6 @@ module decode #(parameter N = 64)
     				output logic [4:0] rs2_D,
 					input logic id_ex_memRead,
 					input logic [4:0] id_ex_Rd,
-					input logic [4:0] if_id_Rn1,
-					input logic [4:0] if_id_Rn2,
 					output logic stall);
 					
 	logic [4:0] ra2;			
@@ -30,8 +28,8 @@ module decode #(parameter N = 64)
 	
 	hdu HDU (.id_ex_memRead(id_ex_memRead),
 				.id_ex_Rd(id_ex_Rd),
-				.if_id_Rn1(if_id_Rn1),
-				.if_id_Rn2(if_id_Rn2),
+				.if_id_Rn1(rs1_D),
+				.if_id_Rn2(rs2_D),
 				.stall(stall));																				
 										
 endmodule

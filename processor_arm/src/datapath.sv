@@ -63,8 +63,6 @@ module datapath #(parameter N = 64)
 										.rs2_D(rs2_D),
 										.id_ex_memRead(qID_EX[264]),
 										.id_ex_Rd(qID_EX[4:0]),
-										.if_id_Rn1(rs1_D),
-										.if_id_Rn2(rs2_D),
 										.stall(stall));				
 
 
