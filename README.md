@@ -43,3 +43,27 @@ Para la implementación de las instrucciones de desplazamiento LSL y LSR, se rea
     * Se añadió un nuevo puerto de entrada de 6 bits para recibir el valor shamt desde la etapa de ejecución.
 
     * Se actualizó la lógica interna (case) para que, al recibir las señales alucontrol 4'b1000 (LSL) o 4'b1001 (LSR), la ALU realice la operación de desplazamiento correspondiente utilizando el valor de shamt.
+
+
+### Funcionamiento Forwarding Unit y Hazard Detection Unit
+
+#### HDU
+![HDU-Working](./processor_arm/images/hdu.png)
+
+```asm
+STUR X6, [X0, #96] // MEM 12:0xFFFFFFFFFFFFFFFF
+LDUR X12, [X0, #0]
+ADD X7, X12, XZR
+STUR X7, [X0, #104] // MEM 13:0x1
+STUR X12, [X0, #112] // MEM 14:0x1
+```
+
+Como se ve en el código, existe una dependencia RAW entre la instrucción LDUR X12, [X0, #0] y ADD X7, X12, XZR, donde la HDU debe intervenir para insertar un stall.
+
+En el flanco ascendente de clock en 465 ns, se hace fetch de la instrucción LDUR X12, [X0, #0].
+
+En el siguiente clock, se decodifica esa instrucción, donde observamos memRead en 1. A su vez, se hace fetch de la instrucción ADD X7, X12, XZR.
+
+En el siguiente clock, se ejecuta LDUR y se decodifica ADD. En este momento, la HDU recibe memRead y Rd provenientes de qID_EX, y Rn y Rm provenientes de la instrucción ADD decodificada.
+
+La HDU verifica que Rd == Rn, Rn ≠ XZR y memRead == 1, por lo que envía la señal Stall. Esto deshabilita el enable del registro IF_ID y IF_ID_TOP para mantener el PC y la instrucción fetcheada. Como se puede ver, el ADD (f8068007) permanece un ciclo de clock extra en fetch mientras que todas las señales de control se ponen en 0.
