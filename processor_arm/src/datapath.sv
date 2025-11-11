@@ -30,7 +30,7 @@ module datapath #(parameter N = 64)
 	logic [4:0] rs1_D;
 	logic [4:0] rs2_D;
 	logic [N-1:0] readData1_E, readData2_E;
-	logic enable, stall;
+	logic stall;
 	
 	assign enable = !stall;
 

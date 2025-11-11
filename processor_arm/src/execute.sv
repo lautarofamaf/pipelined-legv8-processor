@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module execute (
+module execute #(parameter N = 64)(
     input logic AluSrc,
     input logic [3:0] AluControl,
     input logic [63:0] PC_E,

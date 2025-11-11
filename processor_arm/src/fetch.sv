@@ -1,6 +1,6 @@
 `timescale 1ns / 1ps
 
-module fetch (
+module fetch #(parameter N = 64)(
     input  logic        PCSrc_F,
     input  logic        clk,
     input  logic        reset,
