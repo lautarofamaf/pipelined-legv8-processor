@@ -45,6 +45,20 @@ Para la implementación de las instrucciones de desplazamiento LSL y LSR, se rea
     * Se actualizó la lógica interna (case) para que, al recibir las señales alucontrol 4'b1000 (LSL) o 4'b1001 (LSR), la ALU realice la operación de desplazamiento correspondiente utilizando el valor de shamt.
 
 
+### Diagrama de bloques general del procesador
+#### Processor
+![processor](./processor_arm/images/processor.jpg)
+
+#### Datapath
+![dp](./processor_arm/images/datapath.jpg)
+
+#### Forwarding 
+![forwarding-logic](./processor_arm/images/forwarding_cropped_page-0001.jpg)
+
+#### Decode
+![decode](./processor_arm/images/decode_cropped_page-0001.jpg)
+
+
 ### Funcionamiento Forwarding Unit y Hazard Detection Unit
 
 #### Forwarding Unit
