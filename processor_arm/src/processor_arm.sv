@@ -21,6 +21,7 @@ module processor_arm #(
   logic [N-1:0] dp_readData;
   logic [ 10:0] instr;
   logic [ 28:0] cnt29 = 29'd0;
+  logic enable;
 
   controller c (
       .instr(instr),
@@ -52,7 +53,8 @@ module processor_arm #(
       .DM_addr(DM_addr),
       .DM_writeData(DM_writeData),
       .DM_writeEnable(DM_writeEnable),
-      .DM_readEnable(DM_readEnable)
+      .DM_readEnable(DM_readEnable),
+      .enable(enable)
   );
 
 
@@ -73,9 +75,10 @@ module processor_arm #(
   );
 
 
-  flopr #(11) IF_ID_TOP (
+  flopre #(11) IF_ID_TOP (
       .clk(mclk),
       .reset(i_reset),
+      .enable(enable),
       .d(q[31:21]),
       .q(instr)
   );

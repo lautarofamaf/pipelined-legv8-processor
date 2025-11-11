@@ -13,7 +13,8 @@ module datapath #(parameter N = 64)
 					input logic [31:0] IM_readData,
 					input logic [N-1:0] DM_readData,
 					output logic [N-1:0] IM_addr, DM_addr, DM_writeData,
-					output logic DM_writeEnable, DM_readEnable );					
+					output logic DM_writeEnable, DM_readEnable,
+					output logic enable);					
 					
 	logic PCSrc;
 	logic [N-1:0] PCBranch_E, aluResult_E, writeData_E, writeData3; 
@@ -29,15 +30,20 @@ module datapath #(parameter N = 64)
 	logic [4:0] rs1_D;
 	logic [4:0] rs2_D;
 	logic [N-1:0] readData1_E, readData2_E;
+	logic stall;
 	
+	assign enable = !stall;
+
 	fetch 	#(64) 	FETCH 	(.PCSrc_F(PCSrc),
 										.clk(clk),
 										.reset(reset),
 										.PCBranch_F(qEX_MEM[197:134]),
-										.imem_addr_F(IM_addr));								
+										.imem_addr_F(IM_addr),
+										.enable(enable));								
 					
 	
-	flopr 	#(96)		IF_ID 	(.clk(clk),
+	flopre 	#(96)		IF_ID 	(.clk(clk),
+										.enable(enable),
 										.reset(reset), 
 										.d({IM_addr, IM_readData}),
 										.q(qIF_ID));
@@ -54,12 +60,22 @@ module datapath #(parameter N = 64)
 										.wa3_D(qMEM_WB[4:0]),
 										.shamt(shamt),
 										.rs1_D(rs1_D),
-										.rs2_D(rs2_D));				
-																									
-									
+										.rs2_D(rs2_D),
+										.id_ex_memRead(qID_EX[264]),
+										.id_ex_Rd(qID_EX[4:0]),
+										.stall(stall));				
+
+
 	flopr 	#(287)	ID_EX 	(.clk(clk),
 										.reset(reset), 
-										.d({rs1_D, rs2_D, shamt, AluSrc, AluControl, Branch, memRead, memWrite, regWrite, memtoReg,	
+										.d({rs1_D, rs2_D, shamt,
+											(stall ? 1'b0 : AluSrc),
+                                            (stall ? 4'b0 : AluControl),
+                                            (stall ? 1'b0 : Branch),
+                                            (stall ? 1'b0 : memRead),
+                                            (stall ? 1'b0 : memWrite),
+                                            (stall ? 1'b0 : regWrite),
+                                            (stall ? 1'b0 : memtoReg),	
 											qIF_ID[95:32], signImm_D, readData1_D, readData2_D, qIF_ID[4:0]}),
 										.q(qID_EX));	
 	
@@ -103,7 +119,7 @@ module datapath #(parameter N = 64)
 										.forward_B(forward_B));
 
 
-	flopr 	#(203)	EX_MEM 	(.clk(clk),
+	flopr	#(203)	EX_MEM 	(.clk(clk),
 										.reset(reset), 
 										.d({qID_EX[265:261], PCBranch_E, zero_E, aluResult_E, writeData_E, qID_EX[4:0]}),
 										.q(qEX_MEM));	
