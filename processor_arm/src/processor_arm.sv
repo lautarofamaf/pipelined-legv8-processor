@@ -97,10 +97,18 @@ module processor_arm #(
   //   else dp_readData = DM_readData;
   //
   // Escribir en los LEDs (Salida) en la dirección 0x8000
-  always_ff @(posedge mclk)
-    if (DM_addr == 64'h8000 && DM_writeEnable)  // <-- CORREGIDO (era 8008)
-      o_led <= DM_writeData[15:0];
+//   always_ff @(posedge mclk)
+//     if (DM_addr == 64'h8000 && DM_writeEnable)  // <-- CORREGIDO (era 8008)
+//       o_led <= DM_writeData[15:0];
 
+    // Escribir en los LEDs (Salida) en la dirección 0x8000
+    always_ff @(posedge mclk, posedge i_reset) // <-- 1. Añade el reset a la lista
+        if (i_reset) begin
+            o_led <= 16'b0; // <-- 2. Define el estado de reset (LEDs apagados)
+        end
+        else if (DM_addr == 64'h8000 && DM_writeEnable) begin
+            o_led <= DM_writeData[15:0];
+        end
   // Leer desde los Switches (Entrada) en la dirección 0x8008
   always_comb
     if (DM_addr == 64'h8008 && DM_readEnable)  // <-- CORREGIDO (era 8000)
