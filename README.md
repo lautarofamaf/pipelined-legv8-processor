@@ -9,6 +9,8 @@
 * Lautaro Deco
 * Juan Cruz Hermosilla Artico
 
+##### Ejercicios Resueltos: 1 y 2
+
 ### Modificaciones introducidas
 
 Para la implementación de las instrucciones de desplazamiento LSL y LSR, se realizaron modificaciones en la unidad de control, el datapath, la ALU y la ROM.
