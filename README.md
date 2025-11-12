@@ -4,6 +4,11 @@
 
 ## Lab 1: Implementación del procesador LEGv8 con pipeline de 5 etapas
 
+### Integrantes
+* Saenz Valiente Gaspar
+* Lautaro Deco
+* Juan Cruz Hermosilla Artico
+
 ### Modificaciones introducidas
 
 Para la implementación de las instrucciones de desplazamiento LSL y LSR, se realizaron modificaciones en la unidad de control, el datapath, la ALU y la ROM.

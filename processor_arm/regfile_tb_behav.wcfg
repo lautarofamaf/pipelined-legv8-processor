@@ -3,23 +3,23 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="new_tb_behav.wdb" id="1">
+      <db_ref path="leds_tb_behav.wdb" id="1">
          <top_modules>
             <top_module name="glbl" />
-            <top_module name="new_tb" />
+            <top_module name="leds_tb" />
          </top_modules>
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="147.240 ns"></ZoomStartTime>
-      <ZoomEndTime time="291.491 ns"></ZoomEndTime>
-      <Cursor1Time time="225.000 ns"></Cursor1Time>
+      <ZoomStartTime time="8,997.497 ns"></ZoomStartTime>
+      <ZoomEndTime time="9,028.218 ns"></ZoomEndTime>
+      <Cursor1Time time="8,998.817 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="174"></NameColumnWidth>
-      <ValueColumnWidth column_width="162"></ValueColumnWidth>
+      <ValueColumnWidth column_width="154"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="8" />
+   <WVObjectSize size="5" />
    <wvobject fp_name="divider404" type="divider">
       <obj_property name="label">Clk</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -34,25 +34,14 @@
       <obj_property name="label">PC</obj_property>
       <obj_property name="DisplayName">label</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/new_tb/i_mclk">
-      <obj_property name="ElementShortName">i_mclk</obj_property>
-      <obj_property name="ObjectShortName">i_mclk</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/new_tb/i_reset">
-      <obj_property name="ElementShortName">i_reset</obj_property>
-      <obj_property name="ObjectShortName">i_reset</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/new_tb/dump">
-      <obj_property name="ElementShortName">dump</obj_property>
-      <obj_property name="ObjectShortName">dump</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/new_tb/dut/instrMem/q">
-      <obj_property name="ElementShortName">q[31:0]</obj_property>
-      <obj_property name="ObjectShortName">q[31:0]</obj_property>
-   </wvobject>
-   <wvobject type="array" fp_name="/new_tb/dut/o_led">
+   <wvobject type="array" fp_name="/leds_tb/dut/o_led">
       <obj_property name="ElementShortName">o_led[15:0]</obj_property>
       <obj_property name="ObjectShortName">o_led[15:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/leds_tb/dut/i_sw">
+      <obj_property name="ElementShortName">i_sw[15:0]</obj_property>
+      <obj_property name="ObjectShortName">i_sw[15:0]</obj_property>
       <obj_property name="isExpanded"></obj_property>
    </wvobject>
 </wave_config>

@@ -23,7 +23,7 @@ sv xil_defaultlib  \
 "../../../../src/regfile.sv" \
 "../../../../src/signext.sv" \
 "../../../../src/writeback.sv" \
-"../../../../tb/new_tb.sv" \
+"../../../../tb/leds_tb.sv" \
 
 # compile glbl module
 verilog xil_defaultlib "glbl.v"
