@@ -1,4 +1,5 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/ItraukZ2)
+
 # Arquitectura de Computadoras - FAMAF - UNC
 
 ## Lab 1: Implementación del procesador LEGv8 con pipeline de 5 etapas
@@ -198,6 +199,100 @@ Address Data
 
 #### Decode
 ![decode](./processor_arm/images/decode_cropped_page-0001.jpg)
+
+
+
+### Verificación y Programa GPIO (Ejercicio 1)
+
+Para cumplir con los requisitos del Ejercicio 1, se realizaron dos pruebas de software.
+
+#### 1\. Código de Prueba 
+
+Antes de implementar el juego de luces, se utilizó el código de prueba base provisto en la guía del laboratorio. Se le agregaron instrucciones `LSL` y `LSR` para verificar que las nuevas operaciones funcionaban correctamente junto con las instrucciones existentes (`ADD`, `SUB`, `LDUR`, `STUR`, etc.).
+
+También se insertaron manualmente 3 (tres) instrucciones `NOP` (`ADD XZR, XZR, XZR`) después de cada `LDUR` para evitar el *hazard de datos de tipo load-use*, confirmando que el pipeline funcionaba como se esperaba.
+
+#### 2\. Programa Assembly "Juego de Luces" (GPIO)
+
+Se implementó el siguiente programa en `main.s` para controlar los LEDs de la placa.
+
+**Explicación del Funcionamiento:**
+
+Este programa implementa un efecto de luz simple que mueve un único LED desde la posición 0 (derecha) hasta la posición 15 (izquierda).
+
+1.  **Inicialización:**
+
+      * `LSL X10, X1, #15`: Carga la dirección base del GPIO (`0x8000`) en `X10`. Se asume que `X1` vale `1` (precargado por el `regfile.sv`).
+      * `ADD X15, X10, XZR`: Copia el valor `0x8000` a `X15`, que se usará como centinela para detectar el final.
+      * `ADD X12, X1, XZR`: Inicializa el estado del LED. `X12` (el registro de los LEDs) empieza en `1` (LED 0 encendido).
+      * `LSL`/`ADD`: Se calcula un valor de *delay* de 40960 ciclos y se guarda en `X14`.
+
+2.  **Bucle Principal (`MAIN_LOOP`):**
+
+      * `STUR X12, [X10, #0]`: Escribe el valor actual de `X12` en la dirección de los LEDs (`0x8000`), encendiéndolos.
+      * `SUB X20, X12, X15`: Compara el LED actual (`X12`) con el valor final (`X15 = 0x8000`).
+      * `CBZ X20, FINISH`: Si son iguales (el LED llegó al final), salta a `FINISH`.
+      * `ADD X13, X14, XZR`: Carga el valor del *delay* en `X13`.
+      * `DELAY_LOOP`: Se ejecuta un bucle de espera (delay) hasta que `X13` es 0.
+      * `LSL X12, X12, #1`: Desplaza el bit del LED una posición a la izquierda.
+      * `CBZ XZR, MAIN_LOOP`: Vuelve al inicio del bucle.
+
+3.  **Final (`FINISH`):**
+
+      * `CBZ XZR, FINISH`: El programa entra en un bucle infinito, dejando el LED 15 encendido.
+
+**Código `main.s`:**
+
+```armasm
+.global _start
+.text
+_start:
+
+    LSL X10, X1, #15
+    
+    ADD X15, X10, XZR
+    
+    ADD X12, X1, XZR
+    
+    LSL X14, X1, #15
+    LSL X13, X1, #13
+    ADD X14, X14, X13
+    
+
+MAIN_LOOP:
+
+    STUR X12, [X10, #0]
+    
+    SUB X20, X12, X15
+    CBZ X20, FINISH
+    SUB XZR, XZR, XZR
+    SUB XZR, XZR, XZR
+    SUB XZR, XZR, XZR
+    
+    ADD X13, X14, XZR
+
+DELAY_LOOP:
+    CBZ X13, END_DELAY
+    SUB XZR, XZR, XZR
+    SUB XZR, XZR, XZR
+    SUB XZR, XZR, XZR
+    
+    SUB X13, X13, X1
+    CBZ XZR, DELAY_LOOP
+    SUB XZR, XZR, XZR
+    SUB XZR, XZR, XZR
+    SUB XZR, XZR, XZR
+END_DELAY:
+
+    LSL X12, X12, #1
+    
+    CBZ XZR, MAIN_LOOP
+    SUB XZR, XZR, XZR
+    SUB XZR, XZR, XZR
+    SUB XZR, XZR, XZR    
+FINISH:
+    CBZ XZR, FINISH
+```
 
 
 ### Funcionamiento Forwarding Unit y Hazard Detection Unit
