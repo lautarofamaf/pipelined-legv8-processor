@@ -211,94 +211,150 @@ Address Data
 
 ### Verificación y Programa GPIO (Ejercicio 1)
 
-Para cumplir con los requisitos del Ejercicio 1, se realizaron dos pruebas de software.
+Para validar la implementación del hardware (LSL/LSR) y la E/S (GPIO), se implementó un programa assembly interactivo que utiliza tanto los switches (`i_sw`) como los LEDs (`o_led`).
 
-#### 1\. Código de Prueba 
+#### 1\. Descripción del Funcionamiento
 
-Antes de implementar el juego de luces, se utilizó el código de prueba base provisto en la guía del laboratorio. Se le agregaron instrucciones `LSL` y `LSR` para verificar que las nuevas operaciones funcionaban correctamente junto con las instrucciones existentes (`ADD`, `SUB`, `LDUR`, `STUR`, etc.).
+El programa (`main.s`) implementa una animación de LEDs bloqueada por contraseña. El procesador permanece en un bucle de espera (`PASSWORD_LOOP`) hasta que el usuario introduce la contraseña correcta a través de los switches.
 
-También se insertaron manualmente 3 (tres) instrucciones `NOP` (`ADD XZR, XZR, XZR`) después de cada `LDUR` para evitar el *hazard de datos de tipo load-use*, confirmando que el pipeline funcionaba como se esperaba.
+1.  **Espera de Contraseña:**
 
-#### 2\. Programa Assembly "Juego de Luces" (GPIO)
+      * El programa lee continuamente la dirección `0x8008` (mapeada a `i_sw`) usando la instrucción `LDUR X20, [X11, #0]`.
+      * Compara el valor leído (`X20`) con la contraseña predefinida (`X13`).
+      * La contraseña es `34953` (decimal) o **`0x8889`** (hex), lo que requiere que los switches **15, 11, 7, 3 y 0** estén activos.
+      * Mientras la contraseña sea incorrecta, el procesador se mantiene en el `PASSWORD_LOOP`.
 
-Se implementó el siguiente programa en `main.s` para controlar los LEDs de la placa.
+2.  **Animación de LEDs:**
 
-**Explicación del Funcionamiento:**
+      * Una vez que `i_sw` es igual a `0x8889`, el programa salta a `ANIMATION_LOOP`.
+      * La animación consiste en un patrón de 3 bits (`0b...0111`) que se desplaza hacia la izquierda.
+      * El estado de los LEDs (guardado en `X12`) se escribe en la dirección `0x8000` (`STUR X12, [X10, #0]`).
+      * Se ejecuta un bucle de *delay* (`DELAY_LOOP`) para que el movimiento sea visible.
+      * Se comprueba si el patrón ha llegado al borde izquierdo (comparando `X12` con `X16 = 0xE000`, es decir, LEDs 13, 14 y 15).
+      * Si no ha llegado al borde, el patrón se desplaza 1 bit a la izquierda (`LSL X12, X12, #1`).
+      * Si ha llegado al borde, el patrón se resetea a su valor inicial (`ADD X12, X7, XZR`, que es `7` o `0b...0111`).
+      * El bucle de animación se repite indefinidamente.
 
-Este programa implementa un efecto de luz simple que mueve un único LED desde la posición 0 (derecha) hasta la posición 15 (izquierda).
+*(Nota: Para que la imagen de arriba se muestre, asegurate de renombrar tu `imagen.png` a `animacion_leds.png` y colocarla en una carpeta `images` dentro de `processor_arm/`)*
 
-1.  **Inicialización:**
+#### 2\. Testbench Específico (`leds_tb.sv`)
 
-      * `LSL X10, X1, #15`: Carga la dirección base del GPIO (`0x8000`) en `X10`. Se asume que `X1` vale `1` (precargado por el `regfile.sv`).
-      * `ADD X15, X10, XZR`: Copia el valor `0x8000` a `X15`, que se usará como centinela para detectar el final.
-      * `ADD X12, X1, XZR`: Inicializa el estado del LED. `X12` (el registro de los LEDs) empieza en `1` (LED 0 encendido).
-      * `LSL`/`ADD`: Se calcula un valor de *delay* de 40960 ciclos y se guarda en `X14`.
+Para probar esta funcionalidad, se creó un testbench (`leds_tb.sv`) que simula la interacción del usuario:
 
-2.  **Bucle Principal (`MAIN_LOOP`):**
+1.  Inicia con `i_sw = 0x0000` (contraseña incorrecta).
+2.  Espera 50,000 ns y cambia a `i_sw = 0x000F` (otra contraseña incorrecta).
+3.  Espera 50,000 ns más e introduce la contraseña correcta `i_sw = 0x8889`.
+4.  En este punto, la simulación muestra cómo `o_led` comienza la animación, validando el `LDUR`, `CBZ`, `LSL` y `STUR`.
 
-      * `STUR X12, [X10, #0]`: Escribe el valor actual de `X12` en la dirección de los LEDs (`0x8000`), encendiéndolos.
-      * `SUB X20, X12, X15`: Compara el LED actual (`X12`) con el valor final (`X15 = 0x8000`).
-      * `CBZ X20, FINISH`: Si son iguales (el LED llegó al final), salta a `FINISH`.
-      * `ADD X13, X14, XZR`: Carga el valor del *delay* en `X13`.
-      * `DELAY_LOOP`: Se ejecuta un bucle de espera (delay) hasta que `X13` es 0.
-      * `LSL X12, X12, #1`: Desplaza el bit del LED una posición a la izquierda.
-      * `CBZ XZR, MAIN_LOOP`: Vuelve al inicio del bucle.
-
-3.  **Final (`FINISH`):**
-
-      * `CBZ XZR, FINISH`: El programa entra en un bucle infinito, dejando el LED 15 encendido.
-
-**Código `main.s`:**
+#### 3\. Código `main.s` del GPIO
 
 ```armasm
 .global _start
 .text
 _start:
 
+// INICIALIZACION
+
+    // X10 = 0x8000 (Dirección base LEDs)
     LSL X10, X1, #15
     
-    ADD X15, X10, XZR
+    // X11 = 0x8008 (Dirección base switches)
+    ADD X11, X10, X8
     
-    ADD X12, X1, XZR
+    // X12 = 7 (Patrón inicial de LEDs: ...0111)
+    ADD X12, X7, XZR
     
-    LSL X14, X1, #15
-    LSL X13, X1, #13
-    ADD X14, X14, X13
+    // X13 = 34953 (Contraseña: 0x8889)
+    // (34953 = (1<<15) + (1<<11) + (1<<7) + (1<<3) + 1)
+    LSL X13, X1, #15        // X13 = 32768
+    LSL X20, X1, #11        // X20 = 2048
+    ADD X13, X13, X20       // X13 = 34816
+    LSL X20, X1, #7         // X20 = 128
+    ADD X13, X13, X20       // X13 = 34944
+    LSL X20, X1, #3         // X20 = 8
+    ADD X13, X13, X20       // X13 = 34952
+    ADD X13, X13, X1        // X13 = 34953
     
+    // X14 = 4096 (Valor de delay = 1 << 12)
+    LSL X14, X1, #12
+    ADD X20, XZR, XZR
+    
+    // X16 = 57344 (Valor de borde: 7 << 13 = 0xE000)
+    LSL X16, X7, #13
 
-MAIN_LOOP:
+// Bucle de espera de contraseña
+PASSWORD_LOOP:
+    // 1. Leer los switches
+    LDUR X20, [X11, #0]
+    // NOPs para hazard load-use (LDUR -> SUB)
+    ADD XZR, XZR, XZR
+    ADD XZR, XZR, XZR
+    ADD XZR, XZR, XZR
 
+    // 2. Comparar con contraseña (en X13)
+    SUB X20, X20, X13       // X20 = 0 si (switches == 34953)
+    
+    // 3. Si es correcta (X20 == 0), saltar a la animación
+    CBZ X20, ANIMATION_LOOP
+    ADD XZR, XZR, XZR
+    ADD XZR, XZR, XZR
+    ADD XZR, XZR, XZR
+    
+    // 4. Si es incorrecta, volver a leer
+    CBZ XZR, PASSWORD_LOOP
+    ADD XZR, XZR, XZR
+    ADD XZR, XZR, XZR
+    ADD XZR, XZR, XZR
+
+// Bucle de animación
+ANIMATION_LOOP:
+    // 1. Escribir patrón en LEDs
     STUR X12, [X10, #0]
     
-    SUB X20, X12, X15
-    CBZ X20, FINISH
-    SUB XZR, XZR, XZR
-    SUB XZR, XZR, XZR
-    SUB XZR, XZR, XZR
-    
-    ADD X13, X14, XZR
+    // 2. Cargar contador de delay (X13 ahora se usa para el delay)
+    ADD X13, X14, XZR       // Reinicia el contador de delay a 4096
 
+// Bucle de delay
 DELAY_LOOP:
+    // 3. Salir del delay si X13 es 0
     CBZ X13, END_DELAY
-    SUB XZR, XZR, XZR
-    SUB XZR, XZR, XZR
-    SUB XZR, XZR, XZR
-    
+    ADD XZR, XZR, XZR
+    ADD XZR, XZR, XZR
+    ADD XZR, XZR, XZR
+
+    // 4. Decrementar delay
     SUB X13, X13, X1
     CBZ XZR, DELAY_LOOP
-    SUB XZR, XZR, XZR
-    SUB XZR, XZR, XZR
-    SUB XZR, XZR, XZR
-END_DELAY:
+    ADD XZR, XZR, XZR
+    ADD XZR, XZR, XZR
+    ADD XZR, XZR, XZR
 
-    LSL X12, X12, #1
+// Fin del delay, lógica de animación
+END_DELAY:
+    // 5. Comparar patrón actual (X12) con borde (X16 = 0xE000)
+    SUB X20, X12, X16
     
-    CBZ XZR, MAIN_LOOP
-    SUB XZR, XZR, XZR
-    SUB XZR, XZR, XZR
-    SUB XZR, XZR, XZR    
-FINISH:
-    CBZ XZR, FINISH
+    // 6. Si llegó al borde (X20 == 0), resetear LEDs
+    CBZ X20, RESET_LEDS
+    ADD XZR, XZR, XZR
+    ADD XZR, XZR, XZR
+    ADD XZR, XZR, XZR
+    
+    // 7. Si no, mover 1 bit a la izquierda
+    LSL X12, X12, #1
+    CBZ XZR, ANIMATION_LOOP
+    ADD XZR, XZR, XZR
+    ADD XZR, XZR, XZR
+    ADD XZR, XZR, XZR
+
+// Rutina de reseteo
+RESET_LEDS:
+    // 8. Resetear patrón a ...0111 (valor 7, guardado en X7)
+    ADD X12, X7, XZR
+    CBZ XZR, ANIMATION_LOOP
+    ADD XZR, XZR, XZR
+    ADD XZR, XZR, XZR
+    ADD XZR, XZR, XZR
 ```
 
 
