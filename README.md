@@ -1,17 +1,21 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/ItraukZ2)
+# 5-Stage Pipelined LEGv8 Processor Core in SystemVerilog
 
-# Arquitectura de Computadoras - FAMAF - UNC
+![SystemVerilog](https://img.shields.io/badge/SystemVerilog-1A365D?style=flat-square&logo=verilog&logoColor=white)
+![Architecture](https://img.shields.io/badge/Architecture-ARMv8%20%2F%20LEGv8-green?style=flat-square)
+![Hardware](https://img.shields.io/badge/Hardware-Pipelining%20%26%20Hazards-blue?style=flat-square)
 
-## Lab 1: Implementación del procesador LEGv8 con pipeline de 5 etapas
+Hardware implementation of a 5-stage pipelined processor core (**Fetch**, **Decode**, **Execute**, **Memory**, **Writeback**) executing the LEGv8 (subset of ARMv8) instruction set in **SystemVerilog**, featuring hazard detection, data forwarding units, and ALU instruction extensions.
 
-### Integrantes
-* Saenz Valiente Gaspar
+---
+
+### Authors
 * Lautaro Deco
+* Gaspar Saenz Valiente
 * Juan Cruz Hermosilla Artico
 
-##### Ejercicios Resueltos: 1 y 2
+---
 
-### Modificaciones introducidas
+### Technical Highlights & Microarchitecture Extensions
 
 Para la implementación de las instrucciones de desplazamiento LSL y LSR, se realizaron modificaciones en la unidad de control, el datapath, la ALU y la ROM.
 
